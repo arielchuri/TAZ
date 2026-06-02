@@ -10,7 +10,7 @@
 
 ## **1\. Elevator Pitch**
 
-Named after Hakim Bey's radical philosophy, Temporary Autonomous Zone (TAZ) OS is a localized, lightweight operating system designed to run entirely off an offline, solar-powered Raspberry Pi mesh network \[cite: 1, 2\]. It replaces top-down municipal management with horizontal mutual aid, providing everyday people with the immediate digital infrastructure to distribute food, coordinate medical defense, and make direct collective decisions without a central hierarchy when traditional systems fail or retreat \[cite: 1, 2\].
+Temporary Autonomous Zone (TAZ) OS is a localized, lightweight community operating system. The app can run entirely within an offline, solar-powered Raspberry Pi mesh network if the wider internet goes down. It replaces top-down municipal management with horizontal mutual aid and governance, providing everyday people with the immediate digital infrastructure to distribute food, coordinate medical defense, and make direct collective decisions without a central hierarchy when traditional systems fail or retreat.
 
 ## **2\. How the Community Works**
 
