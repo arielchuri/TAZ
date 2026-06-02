@@ -39,10 +39,8 @@ export default function GeminiGiveTake() {
       setStatusMessage('🎉 REQUEST SUBMITTED! NEIGHBORS NOTIFIED.');
     } else if (actionType === 'MAYBE') {
       setStatusMessage('🤝 MEETING REQUESTED! WE WILL SET UP A CHAT.');
-    } else {
-      setStatusMessage('🛑 FORM RESET. NO DATA HAS BEEN TRANSFERRED.');
-      setSharedSkills({});
-      setRequestedAssistance({});
+    } else if (actionType === 'VIEW') {
+      setStatusMessage('👀 LOADING AVAILABLE OFFERINGS FROM THE NETWORK.');
     }
   };
 
@@ -111,12 +109,12 @@ export default function GeminiGiveTake() {
               type='button'
               style={{
                 ...styles.baseButton,
-                backgroundColor: '#f43f5e',
+                backgroundColor: '#60a5fa',
                 color: '#ffffff',
               }}
-              onClick={() => handleAction('NO')}
+              onClick={() => handleAction('VIEW')}
             >
-              NO THANK YOU ✖
+              VIEW AVAILABLE OFFERINGS ➔
             </button>
           </div>
         </form>
