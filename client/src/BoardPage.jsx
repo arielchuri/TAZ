@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import ConnectModal from './ConnectModal';
 
-// Stub board page: shows everything currently available — both shared skills
-// (/api/skills) and requested needs (/api/needs). Read-only for now.
+// Board page: shows all shared skills and requested needs.
+// Clicking an entry opens ConnectModal so the viewer can reach out to the poster.
 
 export default function BoardPage({ onBack }) {
   const [skills, setSkills] = useState([]);
   const [needs, setNeeds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selected, setSelected] = useState(null); // { entry, type: 'skill' | 'need' }
 
   useEffect(() => {
     Promise.all([
@@ -34,9 +36,17 @@ export default function BoardPage({ onBack }) {
 
         {!loading && !error && (
           <>
-            <Column title='SKILLS ON OFFER' accent='#a3e635' entries={skills} />
-            <Column title='NEEDS REQUESTED' accent='#22d3ee' entries={needs} />
+            <Column title='SKILLS ON OFFER' accent='#a3e635' entries={skills} onSelect={(e) => setSelected({ entry: e, type: 'skill' })} />
+            <Column title='NEEDS REQUESTED' accent='#22d3ee' entries={needs} onSelect={(e) => setSelected({ entry: e, type: 'need' })} />
           </>
+        )}
+
+        {selected && (
+          <ConnectModal
+            entry={selected.entry}
+            type={selected.type}
+            onClose={() => setSelected(null)}
+          />
         )}
 
         <div style={styles.buttonContainer}>
@@ -53,7 +63,7 @@ export default function BoardPage({ onBack }) {
   );
 }
 
-function Column({ title, accent, entries }) {
+function Column({ title, accent, entries, onSelect }) {
   return (
     <div style={styles.section}>
       <h2 style={{ ...styles.columnHeader, backgroundColor: accent }}>{title}</h2>
@@ -62,7 +72,12 @@ function Column({ title, accent, entries }) {
       ) : (
         <div style={styles.list}>
           {entries.map((e) => (
-            <div key={e.id} style={styles.entry}>
+            <div
+              key={e.id}
+              style={{ ...styles.entry, cursor: 'pointer' }}
+              onClick={() => onSelect(e)}
+              title='Click to connect'
+            >
               <span style={styles.entryItem}>{(e.item || '').toUpperCase()}</span>
               {e.email && <span style={styles.entryMeta}>{e.email}</span>}
             </div>

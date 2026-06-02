@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "id": "seed-n-001",
+    "item": "Drinking water",
+    "category": "Food",
+    "email": "sam@neighborhood.local",
+    "urgent": true,
+    "createdAt": "2026-06-01T08:30:00.000Z"
+  },
+  {
+    "id": "seed-n-002",
+    "item": "Wheelbarrow",
+    "category": "Tools",
+    "email": "claire@neighborhood.local",
+    "urgent": false,
+    "createdAt": "2026-06-01T09:45:00.000Z"
+  },
+  {
+    "id": "seed-n-003",
+    "item": "Moving help",
+    "category": "Transport",
+    "email": "tariq@neighborhood.local",
+    "urgent": false,
+    "createdAt": "2026-06-01T10:00:00.000Z"
+  },
+  {
+    "id": "seed-n-004",
+    "item": "Elder check-in",
+    "category": "Care",
+    "email": "bea@neighborhood.local",
+    "urgent": true,
+    "createdAt": "2026-06-01T11:30:00.000Z"
+  },
+  {
+    "id": "seed-n-005",
+    "item": "Vegetables",
+    "category": "Food",
+    "email": "ravi@neighborhood.local",
+    "urgent": false,
+    "createdAt": "2026-06-01T12:00:00.000Z"
+  },
+  {
+    "id": "seed-n-006",
+    "item": "Tent space",
+    "category": "Shelter",
+    "email": "yuki@neighborhood.local",
+    "urgent": true,
+    "createdAt": "2026-06-01T14:00:00.000Z"
+  }
+]
