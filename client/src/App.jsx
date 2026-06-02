@@ -1,6 +1,6 @@
 // Root layout. Switches between the Give & Take form flow and the board page.
 import { useState } from 'react';
-import GeminiGiveTake from './GeminiGiveTake';
+import GiveTake from './GiveTake';
 import BoardPage from './BoardPage';
 
 export default function App() {
@@ -11,7 +11,7 @@ export default function App() {
       {view === 'board' ? (
         <BoardPage onBack={() => setView('home')} />
       ) : (
-        <GeminiGiveTake onViewBoard={() => setView('board')} />
+        <GiveTake onViewBoard={() => setView('board')} />
       )}
     </div>
   );
