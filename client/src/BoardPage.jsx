@@ -73,7 +73,7 @@ function Column({ title, accent, entries }) {
   );
 }
 
-// Brutalist Style Tokens (kept consistent with GeminiGiveTake).
+// Brutalist Style Tokens (kept consistent with GiveTake).
 const styles = {
   appWrapper: {
     backgroundColor: '#fffbeb',

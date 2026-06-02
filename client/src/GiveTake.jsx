@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ShareSkills from './ShareSkills';
 import RequestAssistance from './RequestAssistance';
 
-export default function GeminiGiveTake({ onViewBoard }) {
+export default function GiveTake({ onViewBoard }) {
   const [step, setStep] = useState('choose'); // 'choose' | 'share' | 'need'
   const [sharedSkills, setSharedSkills] = useState({});
   const [requestedAssistance, setRequestedAssistance] = useState({});
@@ -83,14 +83,9 @@ export default function GeminiGiveTake({ onViewBoard }) {
     return (
       <div style={styles.appWrapper}>
         <div style={styles.card}>
-          <div style={styles.badge}>SYSTEM_STATUS</div>
           <h2 style={styles.title}>{statusMessage}</h2>
-          <p style={styles.subtitle}>
-            Click below to change your routing parameters or form
-            configurations.
-          </p>
           <button style={styles.baseButton} onClick={resetAll}>
-            [ RETURN TO CONFIG ]
+            [ RETURN HOME ]
           </button>
         </div>
       </div>
@@ -102,8 +97,7 @@ export default function GeminiGiveTake({ onViewBoard }) {
     return (
       <div style={styles.appWrapper}>
         <div style={styles.card}>
-          <div style={styles.badge}>APP_V1.1.0</div>
-          <h1 style={styles.title}>GEMINI: GIVE & TAKE</h1>
+          <h1 style={styles.title}>GIVE & TAKE</h1>
           <p style={styles.subtitle}>What would you like to do?</p>
 
           <div style={styles.buttonContainer}>
@@ -148,7 +142,7 @@ export default function GeminiGiveTake({ onViewBoard }) {
       <div style={styles.card}>
         <div style={styles.badge}>{sharing ? 'SHARE_FORM' : 'NEED_FORM'}</div>
         <h1 style={styles.title}>
-          {sharing ? 'GEMINI: SHARE' : 'GEMINI: NEED'}
+          {sharing ? 'SHARE' : 'NEED'}
         </h1>
         <p style={styles.subtitle}>
           Index your {sharing ? 'capabilities' : 'routing requirements'} below.
