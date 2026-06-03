@@ -103,7 +103,7 @@ export default function GeminiGiveTake({ onViewBoard }) {
       <div style={styles.appWrapper}>
         <div style={styles.card}>
           <div style={styles.badge}>APP_V1.1.0</div>
-          <h1 style={styles.title}>GEMINI: GIVE & TAKE</h1>
+          <h1 style={styles.title}>GIVE & TAKE</h1>
           <p style={styles.subtitle}>What would you like to do?</p>
 
           <div style={styles.buttonContainer}>
