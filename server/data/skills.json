@@ -1,0 +1,57 @@
+[
+  {
+    "id": "4d914bc8-dbda-44e0-8aba-6a8429bf0b54",
+    "item": "Programming & Tech",
+    "email": "Jason@name.com",
+    "createdAt": "2026-06-02T18:40:10.315Z"
+  },
+  {
+    "id": "seed-s-001",
+    "item": "Fresh bread",
+    "category": "Food",
+    "email": "marcos@neighborhood.local",
+    "createdAt": "2026-06-01T08:00:00.000Z"
+  },
+  {
+    "id": "seed-s-002",
+    "item": "First aid",
+    "category": "Skills",
+    "email": "priya@neighborhood.local",
+    "createdAt": "2026-06-01T09:15:00.000Z"
+  },
+  {
+    "id": "seed-s-003",
+    "item": "Ladder",
+    "category": "Tools",
+    "email": "jose@neighborhood.local",
+    "createdAt": "2026-06-01T10:30:00.000Z"
+  },
+  {
+    "id": "seed-s-004",
+    "item": "Car ride",
+    "category": "Transport",
+    "email": "anika@neighborhood.local",
+    "createdAt": "2026-06-01T11:00:00.000Z"
+  },
+  {
+    "id": "seed-s-005",
+    "item": "Childcare",
+    "category": "Care",
+    "email": "dominique@neighborhood.local",
+    "createdAt": "2026-06-01T13:00:00.000Z"
+  },
+  {
+    "id": "seed-s-006",
+    "item": "Bike repair",
+    "category": "Skills",
+    "email": "leo@neighborhood.local",
+    "createdAt": "2026-06-01T14:20:00.000Z"
+  },
+  {
+    "id": "seed-s-007",
+    "item": "Spare room",
+    "category": "Shelter",
+    "email": "fatima@neighborhood.local",
+    "createdAt": "2026-06-01T15:45:00.000Z"
+  }
+]
