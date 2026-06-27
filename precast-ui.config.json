@@ -1,0 +1,6 @@
+{
+  "srcDir": "src",
+  "componentsDir": "components",
+  "cssFramework": "tailwind",
+  "typescript": true
+}
