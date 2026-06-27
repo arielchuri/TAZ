@@ -111,7 +111,7 @@ function App() {
         <nav className="flex flex-col gap-4">
           <SidebarIcon icon={<Home size={28} />} active />
           <SidebarIcon icon={<Package size={28} />} />
-          <SidebarIcon icon={<Users size={28} active={false} />} />
+          <SidebarIcon icon={<Users size={28} />} active={false} />
           <SidebarIcon icon={<Gavel size={28} />} />
         </nav>
 
