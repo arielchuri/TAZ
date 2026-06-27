@@ -150,7 +150,7 @@ function App() {
           >
             <div className="absolute inset-0">
               <img 
-                src="/map.png" 
+                src={`${import.meta.env.BASE_URL}map.png`} 
                 alt="Neighborhood Map" 
                 className="w-full h-full object-cover"
               />
