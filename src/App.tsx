@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { 
   Users, 
   User, 
@@ -80,6 +80,30 @@ function App() {
   // Interactive Help Mode State
   const [isHelpMode, setIsHelpMode] = useState(false);
   const [helpOverlay, setHelpOverlay] = useState<{ title: string; sectionId: string } | null>(null);
+
+  // Local Comms Filter & Message State
+  const [commsFilter, setCommsFilter] = useState<"all" | "ariel" | "mesh" | "emergency">("all");
+  const [newCommsMessage, setNewCommsMessage] = useState("");
+
+  // Listen for Map navigation events
+  useEffect(() => {
+    const handleNav = (e: any) => {
+      const sectionId = e.detail?.sectionId;
+      if (!sectionId) return;
+      if (expandedSection) {
+        setExpandedSection(sectionId);
+      } else {
+        const el = document.getElementById(`section-${sectionId}`);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+          el.classList.add("ring-4", "ring-[#1A66A6]");
+          setTimeout(() => el.classList.remove("ring-4", "ring-[#1A66A6]"), 2000);
+        }
+      }
+    };
+    window.addEventListener("taz-navigate-section", handleNav);
+    return () => window.removeEventListener("taz-navigate-section", handleNav);
+  }, [expandedSection]);
 
   const triggerSectionHelp = (title: string, sectionId: string, e?: React.MouseEvent) => {
     if (isHelpMode) {
@@ -314,6 +338,58 @@ function App() {
     },
   ];
 
+  // Data: Ariel Churi's Community Projects & Work Orders
+  const arielProjects = [
+    {
+      id: "proj-1",
+      title: "MSU 50kW Emergency Solar Canopy & MPPT Intertie",
+      location: "Montclair State University Campus [B7]",
+      role: "Lead Electrical Engineer",
+      progress: 75,
+      status: "Configuring 48V MPPT charge controllers and DC-coupled battery isolation switches.",
+      deadline: "In Progress (Due Friday)",
+      volunteers: 4,
+      priority: "CRITICAL",
+      priorityColor: "bg-[#D35B50] text-white",
+    },
+    {
+      id: "proj-2",
+      title: "Mills Reservation High-Altitude LoRa Mast Maintenance",
+      location: "Mills Normal Ave Basalt Overlook [A4]",
+      role: "RF Systems Tech",
+      progress: 90,
+      status: "Quarterly inspection of solar mast, lightning arrestor, and 915MHz coax integrity.",
+      deadline: "Scheduled Inspection",
+      volunteers: 2,
+      priority: "HIGH",
+      priorityColor: "bg-[#F39D22] text-white",
+    },
+    {
+      id: "proj-3",
+      title: "Upper Montclair Timber Depot Framing & Joinery",
+      location: "Valley Rd & Bellevue Ave Staging Yard [C4]",
+      role: "Volunteer Crew Lead",
+      progress: 40,
+      status: "Staging volunteer timber framing, post mortises, and oak pegs for Saturday barn-raising.",
+      deadline: "Saturday 09:00",
+      volunteers: 8,
+      priority: "COMMUNITY",
+      priorityColor: "bg-[#54C93F] text-white",
+    },
+    {
+      id: "proj-4",
+      title: "Nishuane Springhead Charcoal Bio-Filter Upgrade",
+      location: "Nishuane Park Springhouse [H4]",
+      role: "Water Systems Designer",
+      progress: 20,
+      status: "Sourcing activated hardwood bio-char and food-grade HDPE cistern overflow valves.",
+      deadline: "Planning Phase",
+      volunteers: 3,
+      priority: "PLANNED",
+      priorityColor: "bg-[#1A66A6] text-white",
+    },
+  ];
+
   const filteredNeeds = activeFilter === "all" ? needs : needs.filter(n => n.category === activeFilter);
   const filteredOffers = activeFilter === "all" ? offers : offers.filter(o => o.category === activeFilter);
 
@@ -416,6 +492,7 @@ function App() {
             "flex-1 w-full h-[calc(100vh-38px)] overflow-y-auto bg-[#EFECE6] p-4",
             isHelpMode && "cursor-help"
           )}
+        id="main-dashboard-grid"
         >
           
           {/* EXPANDED: CARTOGRAPHY */}
@@ -1020,14 +1097,16 @@ npm run dev # Launches local peer mesh instance
             "flex-1 grid grid-cols-12 overflow-hidden p-2 gap-2 bg-[#EFECE6]",
             isHelpMode && "cursor-help"
           )}
+        id="main-dashboard-grid"
         >
           
           {/* =========================================================
               COLUMN 1: CARTOGRAPHY, BULLETIN & DISCUSSIONS (4 Cols)
               ========================================================= */}
-          <div className="col-span-4 flex flex-col gap-2 overflow-y-auto">
+          <div className="col-span-4 flex flex-col gap-3">
             
             {/* 1. Local Zone Cartography (Toner Map) */}
+            <div id="section-map">
             <Card 
               onClickCapture={(e) => isHelpMode && triggerSectionHelp("Local Zone Cartography", "map", e)}
               title="Local Zone Cartography" 
@@ -1039,12 +1118,13 @@ npm run dev # Launches local peer mesh instance
               isExpanded={expandedSection === "map"}
               onToggleExpand={() => toggleExpand("map")}
               noBodyPadding={true}
-              className="h-56 shrink-0 flex flex-col"
+              className="h-80 shrink-0 flex flex-col"
             >
               <div className="w-full h-full m-0 p-0 overflow-hidden flex-1 relative">
                 <TonerMap isFullscreen={false} />
               </div>
             </Card>
+            </div>
 
             {/* 2. Social & Bulletin Board */}
             <Card
@@ -1185,9 +1265,10 @@ npm run dev # Launches local peer mesh instance
           {/* =========================================================
               COLUMN 2: TOP-CENTER ABOUT MANIFESTO & MUTUAL AID (4 Cols)
               ========================================================= */}
-          <div className="col-span-4 flex flex-col gap-2 overflow-y-auto">
+          <div className="col-span-4 flex flex-col gap-3">
             
             {/* 1. About TAZ OS: Non-Hierarchical Community Self-Management (Top Center) */}
+            <div id="section-about">
             <Card
               onClickCapture={(e) => isHelpMode && triggerSectionHelp("About TAZ OS: Non-Hierarchical Self-Management", "about", e)}
               title="About TAZ OS: Non-Hierarchical Self-Management"
@@ -1394,6 +1475,65 @@ npm run dev # Launches local peer mesh instance
                 )}
               </div>
             </Card>
+            </div>
+
+            {/* 3. Ariel's Community Projects & Work Orders */}
+            <div id="section-ariel_projects">
+              <Card
+                onClickCapture={(e) => isHelpMode && triggerSectionHelp("Ariel's Community Projects", "ariel_projects", e)}
+                title="Ariel's Community Projects"
+                accentColor="bg-[#222D2C] text-white"
+                badge={<span className="text-[9px] font-mono uppercase bg-[#F4D35A] text-[#222D2C] px-1.5 py-0.2 font-bold">{arielProjects.length} ACTIVE INITIATIVES</span>}
+                headerActions={
+                  <Tip label="Log project hours or request tools">
+                    <Button variant="outline" size="xs" className="!bg-white text-[#222D2C] text-[9px] h-[20px] px-1.5 font-bold uppercase">
+                      + Log Task
+                    </Button>
+                  </Tip>
+                }
+                hint="Lead engineering tasks, microgrid installs, RF maintenance & volunteer coordination assigned to Ariel Churi."
+                isShaded={shadedSections["ariel_projects"]}
+                onToggleShade={() => toggleShade("ariel_projects")}
+                isExpanded={expandedSection === "ariel_projects"}
+                onToggleExpand={() => toggleExpand("ariel_projects")}
+              >
+                <div className="space-y-2 font-mono text-[10px]">
+                  {arielProjects.map((p) => (
+                    <div key={p.id} className="p-2.5 bg-[#FFFFFF] border-2 border-[#222D2C] shadow-sm hover:border-[#1A66A6] transition-colors">
+                      <div className="flex justify-between items-start mb-1">
+                        <div className="flex items-center gap-1.5">
+                          <span className={cn("text-[8px] font-bold px-1.5 py-0.2 uppercase", p.priorityColor)}>
+                            {p.priority}
+                          </span>
+                          <span className="font-bold text-xs text-[#222D2C]">{p.title}</span>
+                        </div>
+                        <span className="text-[9px] text-[#5B6360] bg-[#EFECE6] px-1.5 py-0.2 border border-[#222D2C]/20">{p.deadline}</span>
+                      </div>
+                      
+                      <div className="text-[9px] text-[#1A66A6] font-bold mb-1 flex items-center gap-1">
+                        <span>📍 {p.location}</span>
+                        <span>• Role: {p.role}</span>
+                      </div>
+
+                      <p className="text-[9px] text-[#3E4846] leading-snug mb-2 font-sans">{p.status}</p>
+
+                      <div className="space-y-1 pt-1 border-t border-[#222D2C]/15">
+                        <div className="flex justify-between text-[8px] font-bold text-[#5B6360]">
+                          <span>PROGRESS // {p.progress}% COMPLETE</span>
+                          <span>{p.volunteers} VOLUNTEERS ON-CALL</span>
+                        </div>
+                        <div className="h-2 w-full bg-[#DFDDD7] border border-[#222D2C] p-0.2">
+                          <div 
+                            className="h-full bg-[#1A66A6] transition-all" 
+                            style={{ width: `${p.progress}%` }} 
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </div>
 
             {/* 2. Community Calendar & Fellowship */}
             <Card
@@ -1519,7 +1659,7 @@ npm run dev # Launches local peer mesh instance
           {/* =========================================================
               COLUMN 3: TELEMETRY, COMMS & KNOWLEDGE (4 Cols)
               ========================================================= */}
-          <div className="col-span-4 flex flex-col gap-2 overflow-y-auto">
+          <div className="col-span-4 flex flex-col gap-3">
             
             {/* 1. Microgrid Power */}
             <Card 
@@ -1681,32 +1821,159 @@ npm run dev # Launches local peer mesh instance
             </Card>
 
             {/* 5. Local Comms & Radio */}
-            <Card
-              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Local Comms & Messenger", "comms", e)}
-              title="Local Comms & Messenger"
-              accentColor="bg-[#1A66A6] text-white"
-              badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2">MESH CH 1</span>}
-              hint="Encrypted local mesh messaging channels and emergency broadcast dispatch."
-              isShaded={shadedSections["comms"]}
-              onToggleShade={() => toggleShade("comms")}
-              isExpanded={expandedSection === "comms"}
-              onToggleExpand={() => toggleExpand("comms")}
-            >
-              <div className="space-y-1.5">
-                <div className="p-2 bg-[#EFECE6] border border-[#222D2C] flex items-center justify-between font-mono text-[9px]">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 bg-[#54C93F] rounded-full animate-pulse" />
-                    <span className="font-bold">SECTOR 4 GENERAL (12 ACTIVE)</span>
+            <div id="section-comms">
+              <Card
+                onClickCapture={(e) => isHelpMode && triggerSectionHelp("Local Comms & Messenger", "comms", e)}
+                title="Local Comms & Messenger"
+                accentColor="bg-[#1A66A6] text-white"
+                badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2 font-bold">LORA MESH</span>}
+                hint="Encrypted local mesh messaging channels, Ariel Churi's project logs & emergency broadcast dispatch."
+                isShaded={shadedSections["comms"]}
+                onToggleShade={() => toggleShade("comms")}
+                isExpanded={expandedSection === "comms"}
+                onToggleExpand={() => toggleExpand("comms")}
+              >
+                <div className="space-y-2 text-[10px] font-mono">
+                  {/* Comms Channel Filter Bar */}
+                  <div className="flex gap-1 overflow-x-auto pb-0.5">
+                    <button
+                      onClick={() => setCommsFilter("all")}
+                      className={cn(
+                        "px-1.5 py-0.5 text-[8px] font-bold uppercase border cursor-pointer transition-colors shrink-0",
+                        commsFilter === "all" ? "bg-[#222D2C] text-white border-[#222D2C]" : "bg-white text-[#222D2C] border-[#222D2C]"
+                      )}
+                    >
+                      ALL CHANNELS
+                    </button>
+                    <button
+                      onClick={() => setCommsFilter("ariel")}
+                      className={cn(
+                        "px-1.5 py-0.5 text-[8px] font-bold uppercase border cursor-pointer transition-colors shrink-0 flex items-center gap-1",
+                        commsFilter === "ariel" ? "bg-[#F4D35A] text-[#222D2C] border-[#222D2C] font-black" : "bg-white text-[#222D2C] border-[#222D2C] hover:bg-[#F4D35A]/30"
+                      )}
+                    >
+                      <span>★ ARIEL'S THREADS</span>
+                    </button>
+                    <button
+                      onClick={() => setCommsFilter("mesh")}
+                      className={cn(
+                        "px-1.5 py-0.5 text-[8px] font-bold uppercase border cursor-pointer transition-colors shrink-0",
+                        commsFilter === "mesh" ? "bg-[#222D2C] text-white border-[#222D2C]" : "bg-white text-[#222D2C] border-[#222D2C]"
+                      )}
+                    >
+                      MESH #1
+                    </button>
+                    <button
+                      onClick={() => setCommsFilter("emergency")}
+                      className={cn(
+                        "px-1.5 py-0.5 text-[8px] font-bold uppercase border cursor-pointer transition-colors shrink-0",
+                        commsFilter === "emergency" ? "bg-[#D35B50] text-white border-[#D35B50]" : "bg-white text-[#D35B50] border-[#D35B50]"
+                      )}
+                    >
+                      ALERT
+                    </button>
                   </div>
-                  <span className="text-[#5B6360]">SYNCED</span>
+
+                  {/* Message Stream */}
+                  <div className="space-y-1.5 max-h-56 overflow-y-auto pr-0.5">
+                    {/* Thread 1: Ariel's MSU Telemetry */}
+                    {(commsFilter === "all" || commsFilter === "ariel" || commsFilter === "mesh") && (
+                      <div className="p-2 bg-[#FFFFFF] border border-[#222D2C] space-y-0.5">
+                        <div className="flex justify-between items-center text-[8px]">
+                          <span className="font-bold text-[#1A66A6] flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 bg-[#F4D35A] rounded-full inline-block" />
+                            Ariel Churi (Node #742)
+                          </span>
+                          <span className="text-[#5B6360]">16:11 // [B7]</span>
+                        </div>
+                        <p className="text-[9px] text-[#222D2C] font-sans leading-tight">
+                          MSU Solar Intertie testing at 48.2V MPPT. Feeding +1.2kW into campus storage bank.
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Thread 2: Ariel's Mills Coax Log */}
+                    {(commsFilter === "all" || commsFilter === "ariel" || commsFilter === "mesh") && (
+                      <div className="p-2 bg-[#FFFFFF] border border-[#222D2C] space-y-0.5">
+                        <div className="flex justify-between items-center text-[8px]">
+                          <span className="font-bold text-[#1A66A6] flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 bg-[#F4D35A] rounded-full inline-block" />
+                            Ariel Churi (Node #742)
+                          </span>
+                          <span className="text-[#5B6360]">14:22 // [A4]</span>
+                        </div>
+                        <p className="text-[9px] text-[#222D2C] font-sans leading-tight">
+                          Mills high-altitude repeater coax checked. 98% packet RX on 915MHz channel 1.
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Thread 3: Ariel's Tool Shed Log */}
+                    {(commsFilter === "all" || commsFilter === "ariel") && (
+                      <div className="p-2 bg-[#FFFFFF] border border-[#222D2C] space-y-0.5">
+                        <div className="flex justify-between items-center text-[8px]">
+                          <span className="font-bold text-[#1A66A6] flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 bg-[#F4D35A] rounded-full inline-block" />
+                            Ariel Churi (Node #742)
+                          </span>
+                          <span className="text-[#5B6360]">Yesterday // [F5]</span>
+                        </div>
+                        <p className="text-[9px] text-[#222D2C] font-sans leading-tight">
+                          Delivering spare soldering iron and multimeter to Walnut Street Repair Guild.
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Thread 4: Elena Rostova */}
+                    {(commsFilter === "all" || commsFilter === "mesh") && (
+                      <div className="p-2 bg-[#EFECE6] border border-[#222D2C] space-y-0.5">
+                        <div className="flex justify-between items-center text-[8px]">
+                          <span className="font-bold text-[#222D2C]">Elena Rostova (Node #304)</span>
+                          <span className="text-[#5B6360]">15:45 // [C6]</span>
+                        </div>
+                        <p className="text-[9px] text-[#3E4846] font-sans leading-tight">
+                          First aid clinic restocked with trauma dressings on Valley Road.
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Thread 5: Emergency Broadcast */}
+                    {(commsFilter === "all" || commsFilter === "emergency") && (
+                      <div className="p-2 bg-[#D35B50]/15 border border-[#D35B50] space-y-0.5">
+                        <div className="flex justify-between items-center text-[8px]">
+                          <span className="font-bold text-[#D35B50]">EMERGENCY BROADCAST</span>
+                          <span className="text-[#5B6360]">12:00 // REGIONAL</span>
+                        </div>
+                        <p className="text-[9px] text-[#222D2C] font-sans leading-tight">
+                          Weather ephemeris: Light evening showers approaching from WNW. Rain barrels open.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Quick Compose Input */}
+                  <div className="flex gap-1 pt-1 border-t border-[#222D2C]/20">
+                    <input
+                      type="text"
+                      placeholder="Broadcast to local mesh as Ariel Churi..."
+                      value={newCommsMessage}
+                      onChange={(e) => setNewCommsMessage(e.target.value)}
+                      className="flex-1 bg-white border border-[#222D2C] px-2 py-1 text-[9px] font-sans focus:outline-none focus:border-[#1A66A6]"
+                    />
+                    <button
+                      onClick={() => {
+                        if (newCommsMessage.trim()) {
+                          setNewCommsMessage("");
+                        }
+                      }}
+                      className="bg-[#1A66A6] hover:bg-[#145082] text-white px-2 py-1 text-[9px] font-bold uppercase cursor-pointer"
+                    >
+                      <Send size={11} />
+                    </button>
+                  </div>
                 </div>
-                <Tip label="Launch mesh chat messenger" notImplemented={true}>
-                  <Button variant="primary" size="xs" className="w-full h-[24px]">
-                    <MessageSquare size={11} className="mr-1" /> Open Messenger
-                  </Button>
-                </Tip>
-              </div>
-            </Card>
+              </Card>
+            </div>
 
             {/* 6. Knowledge Base */}
             <Card 

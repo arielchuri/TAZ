@@ -1528,6 +1528,36 @@ const OSM_RASTER_STYLE = {
   ],
 };
 
+function getRelatedOsSection(feature: MapFeature): { id: string; label: string; iconName: string } | null {
+  if (feature.category === "account") {
+    return { id: "ariel_projects", label: "Ariel's Community Projects", iconName: "FolderGit2" };
+  }
+  if (feature.category === "infrastructure") {
+    if (feature.subCategory.includes("Power") || feature.subCategory.includes("Solar") || feature.subCategory.includes("Battery")) {
+      return { id: "power", label: "Microgrid Power", iconName: "Zap" };
+    }
+    if (feature.subCategory.includes("Water")) {
+      return { id: "water", label: "Water Reserves", iconName: "Water" };
+    }
+    if (feature.subCategory.includes("Mesh") || feature.subCategory.includes("Relay")) {
+      return { id: "mesh", label: "Mesh Telemetry", iconName: "Radio" };
+    }
+    if (feature.subCategory.includes("Labor") || feature.subCategory.includes("Tools") || feature.subCategory.includes("Building")) {
+      return { id: "labor", label: "Labor & Tool Guilds", iconName: "Wrench" };
+    }
+    if (feature.subCategory.includes("Aid") || feature.subCategory.includes("Medical") || feature.subCategory.includes("Depot")) {
+      return { id: "matcher", label: "Mutual Aid Matcher", iconName: "Heart" };
+    }
+  }
+  if (feature.category === "foraging") {
+    return { id: "nature", label: "Nature Clock & Ephemeris", iconName: "Sun" };
+  }
+  if (feature.category === "wikipedia" || feature.category === "osm_poi") {
+    return { id: "knowledge", label: "Knowledge Base & Archives", iconName: "BookOpen" };
+  }
+  return null;
+}
+
 export const TonerMap: React.FC<{ isFullscreen?: boolean }> = ({ isFullscreen = false }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapWrapperRef = useRef<HTMLDivElement>(null);
@@ -2224,6 +2254,26 @@ export const TonerMap: React.FC<{ isFullscreen?: boolean }> = ({ isFullscreen = 
               <span className="bg-[#F4D35A] text-[#222D2C] px-1 py-0.2 font-bold">CELL [{selectedFeature.gridRef}]</span>
               <span>{selectedFeature.lat.toFixed(5)}°N, {Math.abs(selectedFeature.lng).toFixed(5)}°W</span>
             </div>
+
+                        {/* Related TAZ OS Module Link */}
+            {(() => {
+              const related = getRelatedOsSection(selectedFeature);
+              if (!related) return null;
+              return (
+                <button
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent("taz-navigate-section", { detail: { sectionId: related.id } }));
+                  }}
+                  className="w-full mb-2 bg-[#222D2C] hover:bg-[#1A66A6] text-white p-1.5 text-[9px] font-bold uppercase flex items-center justify-between gap-1 cursor-pointer transition-colors border border-[#222D2C]"
+                >
+                  <span className="flex items-center gap-1.5 text-[#F4D35A]">
+                    <span>⚡ RELATED OS MODULE:</span>
+                    <span className="text-white font-bold">{related.label}</span>
+                  </span>
+                  <span>Jump To →</span>
+                </button>
+              );
+            })()}
 
             {/* Wikipedia Direct Link */}
             {selectedFeature.wikipediaUrl && (
