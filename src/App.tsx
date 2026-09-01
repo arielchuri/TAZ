@@ -445,6 +445,7 @@ function App() {
                 ? "bg-[#F4D35A] text-[#222D2C] border-[#222D2C] ring-2 ring-[#222D2C]" 
                 : "bg-[#FFFFFF] text-[#222D2C] border-[#222D2C] hover:bg-[#F4D35A]"
             )}
+            data-help-toggle="true"
             title="Click to toggle Help Mode: click any section for tutorial info"
           >
             <HelpCircle size={13} className={isHelpMode ? "text-[#D35B50] animate-bounce" : "text-[#1A66A6]"} />
@@ -1124,7 +1125,7 @@ npm run dev # Launches local peer mesh instance
           <div className="col-span-1 lg:col-span-4 flex flex-col gap-4">
             
             {/* 1. Local Zone Cartography (Toner Map) */}
-            <div id="section-map">
+            <div id="section-map" data-section-id="map" data-section-title="Local Zone Cartography">
             <Card 
               onClickCapture={(e) => isHelpMode && triggerSectionHelp("Local Zone Cartography", "map", e)}
               title="Local Zone Cartography" 
@@ -1286,7 +1287,7 @@ npm run dev # Launches local peer mesh instance
           <div className="col-span-1 lg:col-span-4 flex flex-col gap-4">
             
             {/* 1. About TAZ OS: Non-Hierarchical Community Self-Management (Top Center) */}
-            <div id="section-about">
+            <div id="section-about" data-section-id="about" data-section-title="About TAZ OS: Non-Hierarchical Self-Management">
             <Card
               onClickCapture={(e) => isHelpMode && triggerSectionHelp("About TAZ OS: Non-Hierarchical Self-Management", "about", e)}
               title="About TAZ OS: Non-Hierarchical Self-Management"
@@ -1362,8 +1363,8 @@ npm run dev # Launches local peer mesh instance
                   </div>
                 </div>
 
-                {/* Open Source Hosting & GitHub Links */}
-                <div className="p-2 bg-[#EFECE6] border border-[#222D2C] flex items-center justify-between font-mono text-[9px]">
+                {/* Open Source Hosting & Help Mode Buttons */}
+                <div className="p-2 bg-[#EFECE6] border border-[#222D2C] flex flex-wrap items-center justify-between gap-1.5 font-mono text-[9px]">
                   <div className="flex items-center gap-2">
                     <a
                       href="https://github.com/arielchuri/TAZ"
@@ -1371,13 +1372,31 @@ npm run dev # Launches local peer mesh instance
                       rel="noreferrer"
                       className="bg-[#222D2C] hover:bg-[#1A66A6] text-white px-2 py-0.5 font-bold uppercase flex items-center gap-1 cursor-pointer transition-colors"
                     >
-                      <span>📂 GitHub Repository</span>
+                      <span>📂 GitHub Repo</span>
                     </a>
-                    <span className="text-[#5B6360] hidden sm:inline">Open-Source Self-Hosting</span>
+                    <span className="text-[#1A66A6] font-bold bg-white px-1.5 py-0.5 border border-[#222D2C]">
+                      Setup: Coming Soon
+                    </span>
                   </div>
-                  <span className="text-[#1A66A6] font-bold bg-white px-1.5 py-0.5 border border-[#222D2C]">
-                    Setup Guide: Coming Soon
-                  </span>
+
+                  {/* Dedicated Help Button in About Section */}
+                  <button
+                    data-help-toggle="true"
+                    onClick={() => {
+                      const next = !isHelpMode;
+                      setIsHelpMode(next);
+                      if (!next) setHelpOverlay(null);
+                    }}
+                    className={cn(
+                      "px-2 py-0.5 font-bold uppercase border flex items-center gap-1 cursor-pointer transition-colors shadow-sm",
+                      isHelpMode 
+                        ? "bg-[#F4D35A] text-[#222D2C] border-[#222D2C] font-black animate-pulse" 
+                        : "bg-[#222D2C] hover:bg-[#1A66A6] text-white border-[#222D2C]"
+                    )}
+                  >
+                    <HelpCircle size={11} className={isHelpMode ? "text-[#D35B50]" : "text-[#F4D35A]"} />
+                    <span>{isHelpMode ? "HELP: ACTIVE [ON]" : "❓ HELP MODE"}</span>
+                  </button>
                 </div>
 
                 {/* Footer Action */}
@@ -1496,7 +1515,7 @@ npm run dev # Launches local peer mesh instance
             </div>
 
             {/* 3. Ariel's Community Projects & Work Orders */}
-            <div id="section-ariel_projects">
+            <div id="section-ariel_projects" data-section-id="ariel_projects" data-section-title="Ariel's Community Projects">
               <Card
                 onClickCapture={(e) => isHelpMode && triggerSectionHelp("Ariel's Community Projects", "ariel_projects", e)}
                 title="Ariel's Community Projects"
@@ -1839,7 +1858,7 @@ npm run dev # Launches local peer mesh instance
             </Card>
 
             {/* 5. Local Comms & Radio */}
-            <div id="section-comms">
+            <div id="section-comms" data-section-id="comms" data-section-title="Local Comms & Messenger">
               <Card
                 onClickCapture={(e) => isHelpMode && triggerSectionHelp("Local Comms & Messenger", "comms", e)}
                 title="Local Comms & Messenger"
