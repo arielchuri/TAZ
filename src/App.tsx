@@ -394,11 +394,11 @@ function App() {
   const filteredOffers = activeFilter === "all" ? offers : offers.filter(o => o.category === activeFilter);
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[#EFECE6] text-[#222D2C] flex flex-col font-sans selection:bg-[#1A66A6] selection:text-white">
-      {/* ─── Top Docked Navigation Bar (Height 38px) ───────────────── */}
+    <div className="min-h-screen w-full bg-[#EFECE6] text-[#222D2C] flex flex-col font-sans selection:bg-[#1A66A6] selection:text-white overflow-x-hidden">
+      {/* ─── Top Sticky Navigation Bar (Height 40px, pinned at top) ──── */}
       <header 
         className={cn(
-          "h-[38px] border-b border-[#222D2C] px-3 py-1 flex justify-between items-center shrink-0 select-none transition-colors duration-200",
+          "sticky top-0 z-50 h-[40px] border-b-2 border-[#222D2C] px-3 py-1 flex justify-between items-center shrink-0 select-none transition-colors duration-200 shadow-md",
           currentSectionConfig ? currentSectionConfig.color : "bg-[#1A66A6] text-[#FFFFFF]"
         )}
       >
@@ -430,8 +430,26 @@ function App() {
           </Tip>
         </div>
 
-        {/* SOS Hold, Account & Restore View (Exact Style Guide Uniform Height: 24px) */}
-        <div className="flex items-center gap-1.5">
+        {/* Top Header Actions: Help Mode, SOS, Restore & Account Profile */}
+        <div className="flex items-center gap-2">
+          {/* Prominent Help Mode Toggle */}
+          <button
+            onClick={() => {
+              const nextState = !isHelpMode;
+              setIsHelpMode(nextState);
+              if (!nextState) setHelpOverlay(null);
+            }}
+            className={cn(
+              "h-[26px] px-2.5 font-mono text-[10px] font-black uppercase flex items-center gap-1.5 cursor-pointer border-2 transition-all shadow-sm",
+              isHelpMode 
+                ? "bg-[#F4D35A] text-[#222D2C] border-[#222D2C] ring-2 ring-[#222D2C]" 
+                : "bg-[#FFFFFF] text-[#222D2C] border-[#222D2C] hover:bg-[#F4D35A]"
+            )}
+            title="Click to toggle Help Mode: click any section for tutorial info"
+          >
+            <HelpCircle size={13} className={isHelpMode ? "text-[#D35B50] animate-bounce" : "text-[#1A66A6]"} />
+            <span>{isHelpMode ? "HELP: ACTIVE [ON]" : "HELP MODE [OFF]"}</span>
+          </button>
           {expandedSection ? (
             <button
               onClick={() => setExpandedSection(null)}
@@ -1103,7 +1121,7 @@ npm run dev # Launches local peer mesh instance
           {/* =========================================================
               COLUMN 1: CARTOGRAPHY, BULLETIN & DISCUSSIONS (4 Cols)
               ========================================================= */}
-          <div className="col-span-4 flex flex-col gap-3">
+          <div className="col-span-1 lg:col-span-4 flex flex-col gap-4">
             
             {/* 1. Local Zone Cartography (Toner Map) */}
             <div id="section-map">
@@ -1265,7 +1283,7 @@ npm run dev # Launches local peer mesh instance
           {/* =========================================================
               COLUMN 2: TOP-CENTER ABOUT MANIFESTO & MUTUAL AID (4 Cols)
               ========================================================= */}
-          <div className="col-span-4 flex flex-col gap-3">
+          <div className="col-span-1 lg:col-span-4 flex flex-col gap-4">
             
             {/* 1. About TAZ OS: Non-Hierarchical Community Self-Management (Top Center) */}
             <div id="section-about">
@@ -1659,7 +1677,7 @@ npm run dev # Launches local peer mesh instance
           {/* =========================================================
               COLUMN 3: TELEMETRY, COMMS & KNOWLEDGE (4 Cols)
               ========================================================= */}
-          <div className="col-span-4 flex flex-col gap-3">
+          <div className="col-span-1 lg:col-span-4 flex flex-col gap-4">
             
             {/* 1. Microgrid Power */}
             <Card 
