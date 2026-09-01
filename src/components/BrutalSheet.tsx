@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
 
 interface SheetProps {
   isOpen: boolean;
@@ -20,28 +20,33 @@ export const Sheet: React.FC<SheetProps> = ({ isOpen, onClose, title, children }
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/40 z-40"
           />
           {/* Sheet */}
           <motion.div
-            initial={{ x: '100%' }}
+            initial={{ x: "100%" }}
             animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 h-full w-full max-w-md bg-white border-l-8 border-black z-50 p-8 shadow-[-10px_0_0_0_rgba(0,0,0,1)]"
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 28, stiffness: 240 }}
+            className="fixed right-0 top-0 h-full w-full max-w-md bg-[#EFECE6] border-l border-[#222D2C] z-50 p-6 flex flex-col"
+            style={{
+              borderRadius: 0,
+              boxShadow: "1px 1px 1px 0 rgba(128, 128, 128, 0.25)",
+            }}
           >
-            <div className="flex justify-between items-center mb-8 border-b-4 border-black pb-4">
-              <h2 className="text-3xl font-black uppercase tracking-tighter">{title}</h2>
-              <button 
+            <div className="flex justify-between items-center mb-6 border-b border-[#222D2C] pb-3">
+              <h2 className="text-xl font-extrabold uppercase tracking-tight text-[#222D2C]">
+                {title}
+              </h2>
+              <button
                 onClick={onClose}
-                className="p-2 border-4 border-black hover:bg-red-500 hover:text-white transition-colors shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none"
+                className="w-8 h-8 flex items-center justify-center bg-transparent border border-[#222D2C] hover:bg-[#D35B50] hover:text-white transition-colors cursor-pointer"
+                style={{ borderRadius: 0, boxShadow: "none" }}
               >
-                <X size={24} />
+                <X size={18} />
               </button>
             </div>
-            <div>
-              {children}
-            </div>
+            <div className="flex-1 overflow-y-auto">{children}</div>
           </motion.div>
         </>
       )}
