@@ -1564,6 +1564,45 @@ export const TonerMap: React.FC<{ isFullscreen?: boolean }> = ({ isFullscreen = 
   const [calibratedPoint, setCalibratedPoint] = useState<{ lng: number; lat: number; cell: string } | null>(null);
   const [copiedNotification, setCopiedNotification] = useState(false);
 
+  // Live Mini Wikipedia Entry State
+  const [wikiExtract, setWikiExtract] = useState<string | null>(null);
+  const [wikiDescription, setWikiDescription] = useState<string | null>(null);
+  const [wikiThumbnail, setWikiThumbnail] = useState<string | null>(null);
+  const [isWikiLoading, setIsWikiLoading] = useState(false);
+
+  useEffect(() => {
+    if (selectedFeature && selectedFeature.wikipediaUrl) {
+      const match = selectedFeature.wikipediaUrl.match(/\/wiki\/(.+)$/);
+      if (match && match[1]) {
+        const titleSlug = match[1];
+        setIsWikiLoading(true);
+        setWikiExtract(null);
+        setWikiDescription(null);
+        setWikiThumbnail(null);
+
+        fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${titleSlug}`)
+          .then((res) => {
+            if (!res.ok) throw new Error("Network error");
+            return res.json();
+          })
+          .then((data) => {
+            if (data.extract) setWikiExtract(data.extract);
+            if (data.description) setWikiDescription(data.description);
+            if (data.thumbnail && data.thumbnail.source) setWikiThumbnail(data.thumbnail.source);
+            setIsWikiLoading(false);
+          })
+          .catch(() => {
+            setIsWikiLoading(false);
+          });
+      }
+    } else {
+      setWikiExtract(null);
+      setWikiDescription(null);
+      setWikiThumbnail(null);
+      setIsWikiLoading(false);
+    }
+  }, [selectedFeature]);
+
   // Dynamic Screen Projections for Persistent Grid Labels & Mask
   const [columnCenters, setColumnCenters] = useState<{ col: string; x: number }[]>([]);
   const [rowCenters, setRowCenters] = useState<{ row: string; y: number }[]>([]);
@@ -2104,58 +2143,87 @@ export const TonerMap: React.FC<{ isFullscreen?: boolean }> = ({ isFullscreen = 
           </div>
         </div>
 
-        {/* ─── DETAILED MODAL TOOLTIP / WIKIPEDIA ENTRY CARD ───────── */}
+        {/* ─── DETAILED MODAL TOOLTIP / MINI WIKIPEDIA ENTRY CARD ──── */}
         {selectedFeature && (
-          <div className="absolute bottom-4 right-4 z-40 w-80 bg-[#FFFFFF] border-2 border-[#222D2C] p-3 shadow-2xl font-mono text-[10px] animate-in fade-in zoom-in duration-150">
-            <div className="flex justify-between items-start border-b border-[#222D2C] pb-1.5 mb-2">
+          <div 
+            className="absolute bottom-4 right-4 z-40 w-88 max-w-[calc(100vw-32px)] bg-[#FFFFFF] border-2 border-[#222D2C] p-3 shadow-2xl font-mono text-[10px] animate-in fade-in zoom-in duration-150 max-h-[85vh] overflow-y-auto"
+            style={{ boxShadow: "4px 4px 0px 0px rgba(0,0,0,0.35)" }}
+          >
+            {/* Header with Wikipedia Badge */}
+            <div className="flex justify-between items-start border-b border-[#222D2C] pb-2 mb-2">
               <div>
-                <span className={cn("text-[8px] font-bold px-1.5 py-0.5 uppercase text-white inline-block mb-1", selectedFeature.badgeBg)}>
-                  {selectedFeature.subCategory}
-                </span>
+                <div className="flex items-center gap-1.5 mb-1">
+                  <span className={cn("text-[8px] font-bold px-1.5 py-0.2 uppercase text-white", selectedFeature.badgeBg)}>
+                    {selectedFeature.subCategory}
+                  </span>
+                  {selectedFeature.wikipediaUrl && (
+                    <span className="text-[8px] font-bold bg-[#EFECE6] border border-[#222D2C] px-1 py-0.2 text-[#222D2C] flex items-center gap-1">
+                      <span className="font-serif font-black">W</span> MINI WIKIPEDIA ENTRY
+                    </span>
+                  )}
+                </div>
                 <h3 className="font-bold text-xs text-[#222D2C] leading-tight">{selectedFeature.name}</h3>
                 {selectedFeature.scientificName && (
-                  <div className="italic text-[9px] text-[#5B6360] font-sans">{selectedFeature.scientificName}</div>
+                  <div className="italic text-[10px] text-[#1A66A6] font-serif font-bold mt-0.5">
+                    {selectedFeature.scientificName}
+                  </div>
+                )}
+                {wikiDescription && (
+                  <div className="text-[9px] text-[#5B6360] font-sans mt-0.5 leading-tight">
+                    {wikiDescription}
+                  </div>
                 )}
               </div>
               <button
                 onClick={() => setSelectedFeature(null)}
-                className="w-5 h-5 bg-[#EFECE6] hover:bg-[#222D2C] hover:text-white border border-[#222D2C] flex items-center justify-center font-bold text-xs cursor-pointer"
+                className="w-5 h-5 bg-[#EFECE6] hover:bg-[#222D2C] hover:text-white border border-[#222D2C] flex items-center justify-center font-bold text-xs cursor-pointer shrink-0 ml-2"
+                title="Close"
               >
                 ✕
               </button>
             </div>
 
-            {/* Species Photo / Wikipedia Thumbnail */}
-            {selectedFeature.imageUrl && (
-              <div className="w-full h-28 bg-[#EFECE6] border border-[#222D2C] mb-2 overflow-hidden relative">
+            {/* Featured Photo / Wikimedia Commons Thumbnail */}
+            {(wikiThumbnail || selectedFeature.imageUrl) && (
+              <div className="w-full h-32 bg-[#EFECE6] border border-[#222D2C] mb-2 overflow-hidden relative">
                 <img
-                  src={selectedFeature.imageUrl}
+                  src={wikiThumbnail || selectedFeature.imageUrl}
                   alt={selectedFeature.name}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute bottom-1 right-1 bg-black/60 text-white text-[7px] px-1">
+                <div className="absolute bottom-1 right-1 bg-black/75 text-white text-[7px] px-1 py-0.2 font-mono">
                   WIKIMEDIA COMMONS
                 </div>
               </div>
             )}
 
-            {/* Details & Season */}
-            <p className="text-[9px] text-[#222D2C] leading-snug mb-2">
-              {selectedFeature.details}
-            </p>
+            {/* Mini Wikipedia Lead Summary / Extract */}
+            <div className="p-2 bg-[#EFECE6] border border-[#222D2C] mb-2 font-sans text-[10px] leading-relaxed text-[#222D2C]">
+              {isWikiLoading ? (
+                <div className="flex items-center gap-1.5 text-[#5B6360] font-mono text-[9px] py-1">
+                  <span className="w-2 h-2 bg-[#1A66A6] rounded-full animate-ping" />
+                  <span>Loading live Wikipedia summary...</span>
+                </div>
+              ) : wikiExtract ? (
+                <p>{wikiExtract}</p>
+              ) : (
+                <p>{selectedFeature.details}</p>
+              )}
+            </div>
 
+            {/* Botanical Foraging Traits */}
             {selectedFeature.season && (
-              <div className="p-1.5 bg-[#EFECE6] border border-[#222D2C] mb-2 flex justify-between items-center text-[8px]">
+              <div className="p-1.5 bg-[#FFFFFF] border border-[#222D2C] mb-2 flex justify-between items-center text-[9px] font-mono">
                 <span className="font-bold text-[#8F57CB]">HARVEST SEASON:</span>
-                <span className="font-bold text-[#222D2C]">{selectedFeature.season}</span>
+                <span className="font-bold text-[#222D2C] bg-[#EFECE6] px-1.5 py-0.5">{selectedFeature.season}</span>
               </div>
             )}
 
-            {selectedFeature.extraMeta && (
-              <div className="text-[8px] text-[#5B6360] mb-2 border-t border-[#222D2C]/10 pt-1">
-                {selectedFeature.extraMeta}
-              </div>
-            )}
+            {/* Grid Coordinates & Geographic Placement */}
+            <div className="text-[8px] text-[#5B6360] mb-2.5 flex justify-between items-center border-t border-[#222D2C]/15 pt-1.5 font-mono">
+              <span className="bg-[#F4D35A] text-[#222D2C] px-1 py-0.2 font-bold">CELL [{selectedFeature.gridRef}]</span>
+              <span>{selectedFeature.lat.toFixed(5)}°N, {Math.abs(selectedFeature.lng).toFixed(5)}°W</span>
+            </div>
 
             {/* Wikipedia Direct Link */}
             {selectedFeature.wikipediaUrl && (
@@ -2163,10 +2231,10 @@ export const TonerMap: React.FC<{ isFullscreen?: boolean }> = ({ isFullscreen = 
                 href={selectedFeature.wikipediaUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full bg-[#1A66A6] hover:bg-[#145082] text-white p-1 text-[9px] font-bold uppercase flex items-center justify-center gap-1 cursor-pointer no-underline"
+                className="w-full bg-[#1A66A6] hover:bg-[#145082] text-white py-1.5 px-2 text-[9px] font-bold uppercase flex items-center justify-center gap-1.5 cursor-pointer no-underline border border-[#222D2C] transition-colors"
               >
-                <span>Read Full Wikipedia Article</span>
-                <ExternalLink size={10} />
+                <span>Open Full Wikipedia Article</span>
+                <ExternalLink size={11} />
               </a>
             )}
           </div>
