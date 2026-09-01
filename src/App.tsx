@@ -1136,7 +1136,7 @@ npm run dev # Launches local peer mesh instance
               isExpanded={expandedSection === "map"}
               onToggleExpand={() => toggleExpand("map")}
               noBodyPadding={true}
-              className="h-80 shrink-0 flex flex-col"
+              className="h-[560px] min-h-[500px] shrink-0 flex flex-col"
             >
               <div className="w-full h-full m-0 p-0 overflow-hidden flex-1 relative">
                 <TonerMap isFullscreen={false} />
