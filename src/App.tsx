@@ -44,7 +44,8 @@ import {
   RotateCcw,
   Activity,
   Maximize2,
-  X
+  X,
+  HelpCircle
 } from "lucide-react";
 import { Card, Button, cn, FileItem } from "./components/BrutalBase";
 import { Sheet } from "./components/BrutalSheet";
@@ -75,6 +76,20 @@ function App() {
   // Window Management States: Expand & Shade
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const [shadedSections, setShadedSections] = useState<{ [key: string]: boolean }>({});
+
+  // Interactive Help Mode State
+  const [isHelpMode, setIsHelpMode] = useState(false);
+  const [helpOverlay, setHelpOverlay] = useState<{ title: string; sectionId: string } | null>(null);
+
+  const triggerSectionHelp = (title: string, sectionId: string, e?: React.MouseEvent) => {
+    if (isHelpMode) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      setHelpOverlay({ title, sectionId });
+    }
+  };
 
   const toggleShade = (sectionKey: string) => {
     // Shading disabled if currently expanded
@@ -395,7 +410,13 @@ function App() {
             EXPANDED FULL-SCREEN SECTION CONTENT
             Uses the EXACT same state & data sources as contracted views!
             ========================================================= */
-        <main className="flex-1 w-full h-[calc(100vh-38px)] overflow-y-auto bg-[#EFECE6] p-4">
+        <main 
+          onClickCapture={(e) => isHelpMode && triggerSectionHelp(currentSectionConfig?.title || expandedSection, expandedSection, e)}
+          className={cn(
+            "flex-1 w-full h-[calc(100vh-38px)] overflow-y-auto bg-[#EFECE6] p-4",
+            isHelpMode && "cursor-help"
+          )}
+        >
           
           {/* EXPANDED: CARTOGRAPHY */}
           {expandedSection === "map" && (
@@ -994,7 +1015,12 @@ npm run dev # Launches local peer mesh instance
         /* =========================================================
             STANDARD 3-COLUMN DASHBOARD WORKSPACE
             ========================================================= */
-        <main className="flex-1 grid grid-cols-12 overflow-hidden p-2 gap-2 bg-[#EFECE6]">
+        <main 
+          className={cn(
+            "flex-1 grid grid-cols-12 overflow-hidden p-2 gap-2 bg-[#EFECE6]",
+            isHelpMode && "cursor-help"
+          )}
+        >
           
           {/* =========================================================
               COLUMN 1: CARTOGRAPHY, BULLETIN & DISCUSSIONS (4 Cols)
@@ -1003,6 +1029,7 @@ npm run dev # Launches local peer mesh instance
             
             {/* 1. Local Zone Cartography (Toner Map) */}
             <Card 
+              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Local Zone Cartography", "map", e)}
               title="Local Zone Cartography" 
               accentColor="bg-[#222D2C]"
               badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2">TONER</span>}
@@ -1021,6 +1048,7 @@ npm run dev # Launches local peer mesh instance
 
             {/* 2. Social & Bulletin Board */}
             <Card
+              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Community Bulletin Board", "bulletin", e)}
               title="Community Bulletin Board"
               accentColor="bg-[#F4D35A] !text-[#222D2C]"
               badge={<span className="text-[9px] font-mono uppercase bg-black/10 px-1 py-0.2">{bulletinViewMode.toUpperCase()}</span>}
@@ -1161,6 +1189,7 @@ npm run dev # Launches local peer mesh instance
             
             {/* 1. About TAZ OS: Non-Hierarchical Community Self-Management (Top Center) */}
             <Card
+              onClickCapture={(e) => isHelpMode && triggerSectionHelp("About TAZ OS: Non-Hierarchical Self-Management", "about", e)}
               title="About TAZ OS: Non-Hierarchical Self-Management"
               accentColor="bg-[#222D2C] text-white"
               badge={<span className="text-[9px] font-mono uppercase bg-[#F4D35A] text-[#222D2C] px-1.5 py-0.2 font-bold">ALPHA // WIP</span>}
@@ -1368,6 +1397,7 @@ npm run dev # Launches local peer mesh instance
 
             {/* 2. Community Calendar & Fellowship */}
             <Card
+              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Community Calendar & Fellowship", "calendar", e)}
               title="Community Calendar & Fellowship"
               accentColor="bg-[#54C93F] text-white"
               badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2">EVENTS</span>}
@@ -1493,6 +1523,7 @@ npm run dev # Launches local peer mesh instance
             
             {/* 1. Microgrid Power */}
             <Card 
+              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Microgrid Power", "power", e)}
               title="Microgrid Power" 
               accentColor="bg-[#54C93F] text-white"
               isShaded={shadedSections["power"]}
@@ -1523,6 +1554,7 @@ npm run dev # Launches local peer mesh instance
 
             {/* 2. Water Reserves */}
             <Card 
+              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Water Reserves", "water", e)}
               title="Water Reserves" 
               accentColor="bg-[#3ABEAE] text-white"
               isShaded={shadedSections["water"]}
@@ -1547,6 +1579,7 @@ npm run dev # Launches local peer mesh instance
 
             {/* 3. Mesh Network Telemetry */}
             <Card 
+              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Mesh Network Telemetry", "mesh", e)}
               title="Mesh Network Telemetry" 
               accentColor="bg-[#F39D22] text-white"
               isShaded={shadedSections["mesh"]}
@@ -1576,6 +1609,7 @@ npm run dev # Launches local peer mesh instance
 
             {/* 4. Nature's Clock & Day/5-Day Weather */}
             <Card 
+              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Nature Clock & Weather", "nature", e)}
               title="Nature Clock & Weather" 
               accentColor="bg-[#F4D35A] !text-[#222D2C]"
               isShaded={shadedSections["nature"]}
@@ -1648,6 +1682,7 @@ npm run dev # Launches local peer mesh instance
 
             {/* 5. Local Comms & Radio */}
             <Card
+              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Local Comms & Messenger", "comms", e)}
               title="Local Comms & Messenger"
               accentColor="bg-[#1A66A6] text-white"
               badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2">MESH CH 1</span>}
@@ -1675,6 +1710,7 @@ npm run dev # Launches local peer mesh instance
 
             {/* 6. Knowledge Base */}
             <Card 
+              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Knowledge Base", "knowledge", e)}
               title="Knowledge Base" 
               accentColor="bg-[#8F57CB] text-white"
               isShaded={shadedSections["knowledge"]}
