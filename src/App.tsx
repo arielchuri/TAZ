@@ -67,6 +67,27 @@ function Tip({ label, notImplemented = false, children }: { label: string; notIm
   );
 }
 
+// Color Mapping for Help Mode Overlay Title Bar (matches section clicked)
+const SECTION_COLOR_MAP: Record<string, { bg: string; text: string; accentBorder: string }> = {
+  overview: { bg: "bg-[#1A66A6]", text: "text-white", accentBorder: "border-[#1A66A6]" },
+  general: { bg: "bg-[#1A66A6]", text: "text-white", accentBorder: "border-[#1A66A6]" },
+  map: { bg: "bg-[#222D2C]", text: "text-white", accentBorder: "border-[#222D2C]" },
+  bulletin: { bg: "bg-[#1A66A6]", text: "text-white", accentBorder: "border-[#1A66A6]" },
+  discussions: { bg: "bg-[#8F57CB]", text: "text-white", accentBorder: "border-[#8F57CB]" },
+  about: { bg: "bg-[#222D2C]", text: "text-[#F4D35A]", accentBorder: "border-[#F4D35A]" },
+  matcher: { bg: "bg-[#1A66A6]", text: "text-white", accentBorder: "border-[#1A66A6]" },
+  ariel_projects: { bg: "bg-[#222D2C]", text: "text-[#F4D35A]", accentBorder: "border-[#F4D35A]" },
+  calendar: { bg: "bg-[#54C93F]", text: "text-white", accentBorder: "border-[#54C93F]" },
+  governance: { bg: "bg-[#0F3D64]", text: "text-white", accentBorder: "border-[#0F3D64]" },
+  labor: { bg: "bg-[#F39D22]", text: "text-white", accentBorder: "border-[#F39D22]" },
+  power: { bg: "bg-[#54C93F]", text: "text-white", accentBorder: "border-[#54C93F]" },
+  water: { bg: "bg-[#3ABEAE]", text: "text-white", accentBorder: "border-[#3ABEAE]" },
+  mesh: { bg: "bg-[#F39D22]", text: "text-white", accentBorder: "border-[#F39D22]" },
+  nature: { bg: "bg-[#F4D35A]", text: "text-[#222D2C]", accentBorder: "border-[#F4D35A]" },
+  comms: { bg: "bg-[#1A66A6]", text: "text-white", accentBorder: "border-[#1A66A6]" },
+  knowledge: { bg: "bg-[#8F57CB]", text: "text-white", accentBorder: "border-[#8F57CB]" },
+};
+
 function App() {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState("all");
@@ -2124,25 +2145,41 @@ cd TAZ && npm install && npm run dev
           className="fixed bottom-4 right-4 z-[99999] bg-[#FFFFFF] border-3 border-[#222D2C] p-4 shadow-2xl w-96 max-w-[calc(100vw-32px)] font-mono text-xs animate-in slide-in-from-bottom-2 duration-150"
           style={{ boxShadow: "6px 6px 0px 0px rgba(0,0,0,0.6)" }}
         >
-          {/* Overlay Header */}
-          <div className="flex justify-between items-center border-b-2 border-[#222D2C] pb-2 mb-2 bg-[#222D2C] text-white p-2 -m-4 mb-2.5">
-            <div className="flex items-center gap-2 min-w-0">
-              <HelpCircle size={14} className="text-[#F4D35A] shrink-0" />
-              <span className="font-black text-xs uppercase truncate">
-                HELP: {helpOverlay.title}
-              </span>
-            </div>
-            <button
-              onClick={() => {
-                setHelpOverlay(null);
-                setIsHelpMode(false);
-              }}
-              className="text-white hover:text-[#F4D35A] p-0.5 cursor-pointer font-black text-sm"
-              title="Close Tutorial"
-            >
-              ✕
-            </button>
-          </div>
+          {/* Overlay Header with Dynamic Section Theme Color */}
+          {(() => {
+            const theme = SECTION_COLOR_MAP[helpOverlay.sectionId] || { bg: "bg-[#1A66A6]", text: "text-white", accentBorder: "border-[#1A66A6]" };
+            return (
+              <div className={cn(
+                "flex justify-between items-center border-b-2 border-[#222D2C] pb-2 mb-2 p-2.5 -m-4 mb-3 transition-colors duration-200 select-none shadow-sm",
+                theme.bg,
+                theme.text
+              )}>
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="p-1 bg-black/30 border border-white/20 shrink-0">
+                    <HelpCircle size={13} className="text-white" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="font-black text-xs uppercase tracking-tight block truncate">
+                      HELP: {helpOverlay.title}
+                    </span>
+                    <span className="text-[8px] font-mono opacity-80 uppercase block">
+                      // TARGET SECTION [{helpOverlay.sectionId.toUpperCase()}]
+                    </span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    setHelpOverlay(null);
+                    setIsHelpMode(false);
+                  }}
+                  className="hover:opacity-80 p-1 cursor-pointer font-black text-sm transition-opacity bg-black/20 border border-white/20 hover:bg-black/40 ml-2"
+                  title="Close Tutorial"
+                >
+                  ✕
+                </button>
+              </div>
+            );
+          })()}
 
           {/* Tutorial Body */}
           <div className="space-y-2 py-1">
