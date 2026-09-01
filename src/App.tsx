@@ -1282,759 +1282,900 @@ npm run dev # Launches local peer mesh instance
           </div>
 
           {/* =========================================================
-              COLUMN 2: TOP-CENTER ABOUT MANIFESTO & MUTUAL AID (4 Cols)
+              COLUMNS 2 & 3: ABOUT (8 COLS WIDE) + BALANCED SUBGRID
               ========================================================= */}
-          <div className="col-span-1 lg:col-span-4 flex flex-col gap-4">
+          <div className="col-span-1 lg:col-span-8 flex flex-col gap-4">
             
-            {/* 1. About TAZ OS: Non-Hierarchical Community Self-Management (Top Center) */}
+            {/* 1. About TAZ OS: Non-Hierarchical Community Self-Management (Spans 2 Columns: Col 2-3) */}
             <div id="section-about" data-section-id="about" data-section-title="About TAZ OS: Non-Hierarchical Self-Management">
-            <Card
-              onClickCapture={(e) => isHelpMode && triggerSectionHelp("About TAZ OS: Non-Hierarchical Self-Management", "about", e)}
-              title="About TAZ OS: Non-Hierarchical Self-Management"
-              accentColor="bg-[#222D2C] text-white"
-              badge={<span className="text-[9px] font-mono uppercase bg-[#F4D35A] text-[#222D2C] px-1.5 py-0.2 font-bold">ALPHA // WIP</span>}
-              hint="Decentralized peer-to-peer system for community self-management without mayors, bosses, or central authority."
-              isShaded={shadedSections["about"]}
-              onToggleShade={() => toggleShade("about")}
-              isExpanded={expandedSection === "about"}
-              onToggleExpand={() => toggleExpand("about")}
-            >
-              <div className="space-y-2 text-[10px] text-[#222D2C] leading-snug">
-                {/* WIP Notice Banner */}
-                <div className="p-1.5 bg-[#F4D35A]/20 border border-[#F4D35A] flex items-center justify-between font-mono text-[9px]">
-                  <div className="flex items-center gap-1.5 text-[#222D2C]">
-                    <span className="w-2 h-2 bg-[#F39D22] rounded-full animate-ping inline-block" />
-                    <span className="font-bold">ACTIVE WORK IN PROGRESS (WIP)</span>
-                  </div>
-                  <span className="text-[#5B6360] font-semibold">ALPHA BUILD v2.4</span>
-                </div>
-
-                {/* Core Philosophy Callout */}
-                <div className="p-2.5 bg-[#FFFFFF] border-2 border-[#222D2C] shadow-sm">
-                  <div className="font-black text-[11px] text-[#222D2C] uppercase mb-1 flex items-center gap-1.5 font-mono">
-                    <span className="w-2 h-2 bg-[#54C93F] inline-block" />
-                    <span>Manage Your Community Without Hierarchy</span>
-                  </div>
-                  <p className="text-[#3E4846] text-[10px] leading-relaxed">
-                    <strong>TAZ OS</strong> is an open-source tool for neighborhood self-management. There are <strong>no mayors, no bosses, and no centralized bureaucracies</strong>. Decisions are made through direct consensus democracy, resources are pooled through horizontal mutual aid, and labor is organized collectively (barn-raising).
-                  </p>
-                </div>
-
-                {/* 4 Horizontal Pillars */}
-                <div className="grid grid-cols-2 gap-1.5 font-mono text-[9px]">
-                  <div className="p-1.5 bg-[#FFFFFF] border border-[#222D2C]">
-                    <div className="font-bold text-[#D35B50] flex items-center gap-1">
-                      <Vote size={11} className="text-[#D35B50]" />
-                      <span>1. DIRECT CONSENSUS</span>
-                    </div>
-                    <p className="text-[#5B6360] text-[8px] mt-0.5 leading-tight">
-                      Horizontal decision-making with supermajority voting and no executive bosses.
-                    </p>
-                  </div>
-
-                  <div className="p-1.5 bg-[#FFFFFF] border border-[#222D2C]">
-                    <div className="font-bold text-[#1A66A6] flex items-center gap-1">
-                      <Heart size={11} className="text-[#1A66A6]" />
-                      <span>2. MUTUAL AID</span>
-                    </div>
-                    <p className="text-[#5B6360] text-[8px] mt-0.5 leading-tight">
-                      Needs & offers matched bilaterally without currency, landlords, or middlemen.
-                    </p>
-                  </div>
-
-                  <div className="p-1.5 bg-[#FFFFFF] border border-[#222D2C]">
-                    <div className="font-bold text-[#8F57CB] flex items-center gap-1">
-                      <Hammer size={11} className="text-[#8F57CB]" />
-                      <span>3. BARN-RAISING LABOR</span>
-                    </div>
-                    <p className="text-[#5B6360] text-[8px] mt-0.5 leading-tight">
-                      Volunteer collective labor brigades and community tool lending libraries.
-                    </p>
-                  </div>
-
-                  <div className="p-1.5 bg-[#FFFFFF] border border-[#222D2C]">
-                    <div className="font-bold text-[#54C93F] flex items-center gap-1">
-                      <Radio size={11} className="text-[#54C93F]" />
-                      <span>4. ZERO-CLOUD MESH</span>
-                    </div>
-                    <p className="text-[#5B6360] text-[8px] mt-0.5 leading-tight">
-                      Local 915MHz LoRa & Wi-Fi mesh independent of Big Tech servers or telecom ISPs.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Open Source Hosting & Help Mode Buttons */}
-                <div className="p-2 bg-[#EFECE6] border border-[#222D2C] flex flex-wrap items-center justify-between gap-1.5 font-mono text-[9px]">
-                  <div className="flex items-center gap-2">
-                    <a
-                      href="https://github.com/arielchuri/TAZ"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="bg-[#222D2C] hover:bg-[#1A66A6] text-white px-2 py-0.5 font-bold uppercase flex items-center gap-1 cursor-pointer transition-colors"
-                    >
-                      <span>📂 GitHub Repo</span>
-                    </a>
-                    <span className="text-[#1A66A6] font-bold bg-white px-1.5 py-0.5 border border-[#222D2C]">
-                      Setup: Coming Soon
-                    </span>
-                  </div>
-
-                  {/* Dedicated Help Button in About Section */}
-                  <button
-                    data-help-toggle="true"
-                    onClick={() => {
-                      const next = !isHelpMode;
-                      setIsHelpMode(next);
-                      if (!next) setHelpOverlay(null);
-                    }}
-                    className={cn(
-                      "px-2 py-0.5 font-bold uppercase border flex items-center gap-1 cursor-pointer transition-colors shadow-sm",
-                      isHelpMode 
-                        ? "bg-[#F4D35A] text-[#222D2C] border-[#222D2C] font-black animate-pulse" 
-                        : "bg-[#222D2C] hover:bg-[#1A66A6] text-white border-[#222D2C]"
-                    )}
-                  >
-                    <HelpCircle size={11} className={isHelpMode ? "text-[#D35B50]" : "text-[#F4D35A]"} />
-                    <span>{isHelpMode ? "HELP: ACTIVE [ON]" : "❓ HELP MODE"}</span>
-                  </button>
-                </div>
-
-                {/* Footer Action */}
-                <div className="flex justify-between items-center pt-1 border-t border-[#222D2C]/20 font-mono text-[9px]">
-                  <span className="text-[#1A66A6] font-bold">SECTOR 4 // PEER-TO-PEER COOPERATION</span>
-                  <button 
-                    onClick={() => toggleExpand("about")} 
-                    className="underline font-bold hover:text-[#1A66A6] cursor-pointer"
-                  >
-                    {expandedSection === "about" ? "Collapse Section ↑" : "Expand Full Manifesto, Architecture & Setup →"}
-                  </button>
-                </div>
-              </div>
-            </Card>
-            
-            {/* 1. Mutual Aid Matcher */}
-            <Card 
-              title="Mutual Aid Matcher" 
-              accentColor="bg-[#1A66A6]"
-              badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2">SEC 2.2</span>}
-              headerActions={
-                <Tip label="Post need or offer to board" notImplemented={true}>
-                  <Button variant="primary" size="xs" className="!bg-[#0F3D64] hover:!bg-[#08233a] px-2 py-0.5 text-[10px] h-[22px]">
-                    <Plus size={11} /> Post
-                  </Button>
-                </Tip>
-              }
-              hint="Decentralized give/take matching protocol. Operates offline over LoRa mesh."
-              isShaded={shadedSections["matcher"]}
-              onToggleShade={() => toggleShade("matcher")}
-              isExpanded={expandedSection === "matcher"}
-              onToggleExpand={() => toggleExpand("matcher")}
-            >
-              <div className="flex border-b border-[#222D2C] -mx-2.5 -mt-2.5 mb-2 bg-[#DFDDD7] shrink-0">
-                <button
-                  onClick={() => setViewMode("take")}
-                  className={cn(
-                    "flex-1 py-1 px-2 text-[10px] font-bold uppercase tracking-wider transition-colors border-none cursor-pointer flex items-center justify-center gap-1.5 font-mono leading-normal h-[28px]",
-                    viewMode === "take" ? "bg-[#1A66A6] text-white" : "bg-transparent text-[#5B6360] hover:text-[#222D2C]"
-                  )}
-                  style={{ borderRadius: 0 }}
-                >
-                  <ShieldAlert size={12} />
-                  <span>Needs ({needs.length})</span>
-                </button>
-                <button
-                  onClick={() => setViewMode("give")}
-                  className={cn(
-                    "flex-1 py-1 px-2 text-[10px] font-bold uppercase tracking-wider transition-colors border-none cursor-pointer flex items-center justify-center gap-1.5 font-mono leading-normal h-[28px]",
-                    viewMode === "give" ? "bg-[#1A66A6] text-white" : "bg-transparent text-[#5B6360] hover:text-[#222D2C]"
-                  )}
-                  style={{ borderRadius: 0 }}
-                >
-                  <Heart size={12} />
-                  <span>Offers ({offers.length})</span>
-                </button>
-              </div>
-
-              <div className="flex items-center gap-1 mb-2 overflow-x-auto pb-0.5 shrink-0">
-                <span className="text-[9px] font-mono font-bold text-[#5B6360] uppercase px-0.5 py-0.5">FILTER:</span>
-                <FilterChip active={activeFilter === "all"} onClick={() => setActiveFilter("all")} label="ALL" />
-                <FilterChip active={activeFilter === "water"} onClick={() => setActiveFilter("water")} icon={<Water size={10} />} label="H2O" />
-                <FilterChip active={activeFilter === "medical"} onClick={() => setActiveFilter("medical")} icon={<Pill size={10} />} label="MED" />
-                <FilterChip active={activeFilter === "power"} onClick={() => setActiveFilter("power")} icon={<Zap size={10} />} label="PWR" />
-                <FilterChip active={activeFilter === "food"} onClick={() => setActiveFilter("food")} icon={<Utensils size={10} />} label="FOOD" />
-              </div>
-
-              <div className="flex flex-col gap-1.5 overflow-y-auto max-h-44 pr-0.5">
-                {viewMode === "take" ? (
-                  filteredNeeds.map((item) => (
-                    <div 
-                      key={item.id}
-                      className="p-2 bg-[#EFECE6] border border-[#222D2C] hover:border-[#1A66A6] flex justify-between items-center gap-2 transition-colors"
-                    >
-                      <div className="flex items-center gap-2 min-w-0">
-                        <div className={cn("p-1 bg-white border shrink-0", item.color)}>{item.icon}</div>
-                        <div className="min-w-0 py-0.5">
-                          <div className="font-bold text-[11px] text-[#222D2C] leading-tight truncate">{item.title}</div>
-                          <div className="font-mono text-[9px] text-[#5B6360] leading-tight mt-0.5">{item.user} • {item.time}</div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        <span className={cn(
-                          "font-mono text-[9px] font-bold px-1.5 py-0.5 border uppercase tracking-wider h-[20px] flex items-center",
-                          item.urgency === "Critical" ? "bg-[#D35B50]/15 text-[#D35B50] border-[#D35B50]" : "bg-[#F39D22]/15 text-[#9e5d00] border-[#F39D22]"
-                        )}>
-                          {item.urgency}
-                        </span>
-                        <Tip label="Fulfill request" notImplemented={true}>
-                          <Button variant="primary" size="xs" className="h-[22px]">Fulfill</Button>
-                        </Tip>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  filteredOffers.map((item) => (
-                    <div 
-                      key={item.id}
-                      className="p-2 bg-[#EFECE6] border border-[#222D2C] hover:border-[#1A66A6] flex justify-between items-center gap-2 transition-colors"
-                    >
-                      <div className="flex items-center gap-2 min-w-0">
-                        <div className={cn("p-1 bg-white border shrink-0", item.color)}>{item.icon}</div>
-                        <div className="min-w-0 py-0.5">
-                          <div className="font-bold text-[11px] text-[#222D2C] leading-tight truncate">{item.title}</div>
-                          <div className="font-mono text-[9px] text-[#5B6360] leading-tight mt-0.5">{item.user} • AVAIL: {item.available}</div>
-                        </div>
-                      </div>
-                      <Tip label="Request assistance" notImplemented={true}>
-                        <Button variant="secondary" size="xs" className="shrink-0 h-[22px]">Request</Button>
-                      </Tip>
-                    </div>
-                  ))
-                )}
-              </div>
-            </Card>
-            </div>
-
-            {/* 3. Ariel's Community Projects & Work Orders */}
-            <div id="section-ariel_projects" data-section-id="ariel_projects" data-section-title="Ariel's Community Projects">
               <Card
-                onClickCapture={(e) => isHelpMode && triggerSectionHelp("Ariel's Community Projects", "ariel_projects", e)}
-                title="Ariel's Community Projects"
+                onClickCapture={(e) => isHelpMode && triggerSectionHelp("About TAZ OS: Non-Hierarchical Self-Management", "about", e)}
+                title="About TAZ OS: Non-Hierarchical Community Self-Management"
                 accentColor="bg-[#222D2C] text-white"
-                badge={<span className="text-[9px] font-mono uppercase bg-[#F4D35A] text-[#222D2C] px-1.5 py-0.2 font-bold">{arielProjects.length} ACTIVE INITIATIVES</span>}
-                headerActions={
-                  <Tip label="Log project hours or request tools">
-                    <Button variant="outline" size="xs" className="!bg-white text-[#222D2C] text-[9px] h-[20px] px-1.5 font-bold uppercase">
-                      + Log Task
-                    </Button>
-                  </Tip>
-                }
-                hint="Lead engineering tasks, microgrid installs, RF maintenance & volunteer coordination assigned to Ariel Churi."
-                isShaded={shadedSections["ariel_projects"]}
-                onToggleShade={() => toggleShade("ariel_projects")}
-                isExpanded={expandedSection === "ariel_projects"}
-                onToggleExpand={() => toggleExpand("ariel_projects")}
+                badge={<span className="text-[9px] font-mono uppercase bg-[#F4D35A] text-[#222D2C] px-1.5 py-0.2 font-bold">ALPHA // WIP</span>}
+                hint="Decentralized peer-to-peer system for community self-management without mayors, bosses, or central authority."
+                isShaded={shadedSections["about"]}
+                onToggleShade={() => toggleShade("about")}
+                isExpanded={expandedSection === "about"}
+                onToggleExpand={() => toggleExpand("about")}
               >
-                <div className="space-y-2 font-mono text-[10px]">
-                  {arielProjects.map((p) => (
-                    <div key={p.id} className="p-2.5 bg-[#FFFFFF] border-2 border-[#222D2C] shadow-sm hover:border-[#1A66A6] transition-colors">
-                      <div className="flex justify-between items-start mb-1">
-                        <div className="flex items-center gap-1.5">
-                          <span className={cn("text-[8px] font-bold px-1.5 py-0.2 uppercase", p.priorityColor)}>
-                            {p.priority}
-                          </span>
-                          <span className="font-bold text-xs text-[#222D2C]">{p.title}</span>
-                        </div>
-                        <span className="text-[9px] text-[#5B6360] bg-[#EFECE6] px-1.5 py-0.2 border border-[#222D2C]/20">{p.deadline}</span>
-                      </div>
-                      
-                      <div className="text-[9px] text-[#1A66A6] font-bold mb-1 flex items-center gap-1">
-                        <span>📍 {p.location}</span>
-                        <span>• Role: {p.role}</span>
-                      </div>
-
-                      <p className="text-[9px] text-[#3E4846] leading-snug mb-2 font-sans">{p.status}</p>
-
-                      <div className="space-y-1 pt-1 border-t border-[#222D2C]/15">
-                        <div className="flex justify-between text-[8px] font-bold text-[#5B6360]">
-                          <span>PROGRESS // {p.progress}% COMPLETE</span>
-                          <span>{p.volunteers} VOLUNTEERS ON-CALL</span>
-                        </div>
-                        <div className="h-2 w-full bg-[#DFDDD7] border border-[#222D2C] p-0.2">
-                          <div 
-                            className="h-full bg-[#1A66A6] transition-all" 
-                            style={{ width: `${p.progress}%` }} 
-                          />
-                        </div>
-                      </div>
+                <div className="space-y-2.5 text-[10px] text-[#222D2C] leading-snug">
+                  {/* Top WIP Callout */}
+                  <div className="p-2 bg-[#F4D35A]/20 border border-[#F4D35A] flex flex-wrap items-center justify-between gap-2 font-mono text-[9px]">
+                    <div className="flex items-center gap-2 text-[#222D2C]">
+                      <span className="w-2.5 h-2.5 bg-[#F39D22] rounded-full animate-ping inline-block shrink-0" />
+                      <span className="font-bold">ACTIVE WORK IN PROGRESS (WIP) // SECTOR 4 LOCAL NODE</span>
                     </div>
-                  ))}
-                </div>
-              </Card>
-            </div>
-
-            {/* 2. Community Calendar & Fellowship */}
-            <Card
-              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Community Calendar & Fellowship", "calendar", e)}
-              title="Community Calendar & Fellowship"
-              accentColor="bg-[#54C93F] text-white"
-              badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2">EVENTS</span>}
-              headerActions={
-                <Tip label="Add new gathering" notImplemented={true}>
-                  <Button variant="primary" size="xs" className="!bg-[#3f9e2f] hover:!bg-[#2e7a21] px-2 py-0.5 text-[10px] h-[22px]">
-                    <Plus size={11} /> Event
-                  </Button>
-                </Tip>
-              }
-              hint="Wholesome gatherings, barn raising, fellowship potlucks & workshops."
-              isShaded={shadedSections["calendar"]}
-              onToggleShade={() => toggleShade("calendar")}
-              isExpanded={expandedSection === "calendar"}
-              onToggleExpand={() => toggleExpand("calendar")}
-            >
-              <div className="flex flex-col gap-1.5">
-                {calendarEvents.map((ev) => (
-                  <div
-                    key={ev.id}
-                    className="p-2 bg-[#EFECE6] border border-[#222D2C] hover:border-[#54C93F] transition-colors flex items-center justify-between gap-2"
-                  >
-                    <div className="flex items-center gap-2 min-w-0">
-                      <div className="w-9 h-9 bg-[#FFFFFF] border border-[#222D2C] flex flex-col items-center justify-center shrink-0 font-mono">
-                        <span className="text-[7px] font-bold text-[#D35B50] uppercase leading-none">{ev.date.split(" ")[0]}</span>
-                        <span className="text-[11px] font-black text-[#222D2C] leading-none mt-0.5">{ev.date.split(" ")[2]}</span>
-                      </div>
-                      <div className="min-w-0">
-                        <span className={cn("text-[7px] font-mono font-bold px-1 py-0.2 uppercase leading-none inline-block", ev.tagColor)}>
-                          {ev.type}
-                        </span>
-                        <div className="font-bold text-[10px] text-[#222D2C] truncate leading-tight mt-0.5">{ev.title}</div>
-                        <div className="font-mono text-[8px] text-[#5B6360] truncate">{ev.time} • {ev.location}</div>
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-end gap-1 shrink-0">
-                      <span className="font-mono text-[8px] text-[#54C93F] font-bold">{ev.rsvpCount} RSVP</span>
-                      <Tip label="RSVP to event" notImplemented={true}>
-                        <Button variant="primary" size="xs" className="h-[20px] px-2 text-[9px] !bg-[#54C93F]">Join</Button>
-                      </Tip>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            {/* 3. Governance & Direct Consensus */}
-            <Card
-              title="Governance & Consensus"
-              accentColor="bg-[#0F3D64] text-white"
-              badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2">ASSEMBLY</span>}
-              hint="Direct consensus democracy: active neighborhood referendums & quorum voting."
-              isShaded={shadedSections["governance"]}
-              onToggleShade={() => toggleShade("governance")}
-              isExpanded={expandedSection === "governance"}
-              onToggleExpand={() => toggleExpand("governance")}
-            >
-              <div className="space-y-2">
-                <div className="p-2 bg-[#EFECE6] border border-[#222D2C]">
-                  <div className="flex justify-between items-start mb-1">
-                    <span className="font-bold text-[11px] text-[#222D2C]">Solar Array Expansion (Phase 2)</span>
-                    <span className="font-mono text-[9px] bg-[#54C93F] text-white px-1 py-0.2 font-bold">80% PASS</span>
-                  </div>
-                  <div className="flex gap-1 h-3 my-1.5">
-                    {[1, 2, 3, 4, 5].map((n) => (
-                      <div
-                        key={n}
+                    <div className="flex items-center gap-2">
+                      <a
+                        href="https://github.com/arielchuri/TAZ"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="bg-[#222D2C] hover:bg-[#1A66A6] text-white px-2 py-0.5 font-bold uppercase flex items-center gap-1 cursor-pointer transition-colors"
+                      >
+                        <span>📂 GitHub Repo</span>
+                      </a>
+                      <button
+                        data-help-toggle="true"
+                        onClick={() => {
+                          const next = !isHelpMode;
+                          setIsHelpMode(next);
+                          if (next) {
+                            setHelpOverlay({ title: "TAZ OS Tutorial & Navigation", sectionId: "overview" });
+                          } else {
+                            setHelpOverlay(null);
+                          }
+                        }}
                         className={cn(
-                          "flex-1 border border-[#222D2C]",
-                          n <= 4 ? "bg-[#0F3D64]" : "bg-[#FFFFFF]"
+                          "px-2 py-0.5 font-bold uppercase border flex items-center gap-1 cursor-pointer transition-colors shadow-sm",
+                          isHelpMode 
+                            ? "bg-[#F4D35A] text-[#222D2C] border-[#222D2C] font-black animate-pulse" 
+                            : "bg-[#222D2C] hover:bg-[#1A66A6] text-white border-[#222D2C]"
                         )}
-                      />
-                    ))}
-                  </div>
-                  <div className="font-mono text-[9px] text-[#5B6360] flex justify-between">
-                    <span>QUORUM: 42 VOTES CAST</span>
-                    <span>4/5 NEIGHBORS AGREED</span>
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
-                  <Tip label="Vote on referendum" notImplemented={true}><Button variant="outline" size="xs" className="flex-1 h-[24px]">Cast Vote</Button></Tip>
-                  <Tip label="Enter general assembly" notImplemented={true}><Button variant="primary" size="xs" className="flex-1 h-[24px] !bg-[#0F3D64]">Enter Assembly</Button></Tip>
-                </div>
-              </div>
-            </Card>
-
-            {/* 4. Labor & Infrastructure Tasks */}
-            <Card
-              title="Labor & Infrastructure"
-              accentColor="bg-[#F39D22] text-white"
-              badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2">ROSTER</span>}
-              hint="Community work shifts, tool lending & scheduled repairs."
-              isShaded={shadedSections["labor"]}
-              onToggleShade={() => toggleShade("labor")}
-              isExpanded={expandedSection === "labor"}
-              onToggleExpand={() => toggleExpand("labor")}
-            >
-              <div className="space-y-1.5">
-                <div className="border border-[#222D2C] p-2 bg-[#EFECE6] flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <Wrench className="text-[#F39D22]" size={16} />
-                    <div>
-                      <div className="font-bold text-[11px] uppercase">Infrastructure Stable</div>
-                      <div className="font-mono text-[9px] text-[#5B6360]">0 critical work orders today</div>
+                      >
+                        <HelpCircle size={11} className={isHelpMode ? "text-[#D35B50]" : "text-[#F4D35A]"} />
+                        <span>{isHelpMode ? "HELP: ACTIVE [ON]" : "❓ TUTORIAL HELP"}</span>
+                      </button>
                     </div>
                   </div>
-                  <span className="font-mono text-[9px] bg-[#54C93F] text-white px-1.5 py-0.5 font-bold">NORMAL</span>
-                </div>
-                <div className="flex gap-2">
-                  <Tip label="View maintenance roster" notImplemented={true}><Button variant="yellow" size="xs" className="flex-1 h-[24px]">Check Task Board</Button></Tip>
-                  <Tip label="Log volunteer hours" notImplemented={true}><Button variant="outline" size="xs" className="flex-1 h-[24px]">Log Labor Hours</Button></Tip>
-                </div>
-              </div>
-            </Card>
 
-          </div>
+                  {/* 2-Column Balanced Interior: Left = Manifesto & Pillars, Right = Open Source Hosting & Instructions */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {/* Left: Manifesto & 4 Pillars */}
+                    <div className="space-y-2">
+                      <div className="p-2.5 bg-[#FFFFFF] border-2 border-[#222D2C] shadow-sm">
+                        <div className="font-black text-[11px] text-[#222D2C] uppercase mb-1 flex items-center gap-1.5 font-mono">
+                          <span className="w-2 h-2 bg-[#54C93F] inline-block" />
+                          <span>Manage Your Community Without Hierarchy</span>
+                        </div>
+                        <p className="text-[#3E4846] text-[10px] leading-relaxed">
+                          <strong>TAZ OS</strong> is an open-source tool for neighborhood self-management. There are <strong>no mayors, no bosses, and no centralized bureaucracies</strong>. Decisions are made through direct consensus democracy, resources are pooled through horizontal mutual aid, and labor is organized collectively (barn-raising).
+                        </p>
+                      </div>
 
-          {/* =========================================================
-              COLUMN 3: TELEMETRY, COMMS & KNOWLEDGE (4 Cols)
-              ========================================================= */}
-          <div className="col-span-1 lg:col-span-4 flex flex-col gap-4">
-            
-            {/* 1. Microgrid Power */}
-            <Card 
-              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Microgrid Power", "power", e)}
-              title="Microgrid Power" 
-              accentColor="bg-[#54C93F] text-white"
-              isShaded={shadedSections["power"]}
-              onToggleShade={() => toggleShade("power")}
-              isExpanded={expandedSection === "power"}
-              onToggleExpand={() => toggleExpand("power")}
-            >
-              <div className="space-y-1.5">
-                <div className="flex justify-between items-baseline font-mono border-b border-[#222D2C]/20 pb-1 px-0.5">
-                  <span className="text-[9px] uppercase text-[#5B6360] font-semibold">Storage Bank</span>
-                  <span className="text-xs font-bold text-[#222D2C] tabular-nums">8.4 / 10 kWh</span>
-                </div>
-                <div className="h-3 w-full bg-[#DFDDD7] border border-[#222D2C] p-0.5">
-                  <div className="h-full bg-[#54C93F]" style={{ width: "84%" }} />
-                </div>
-                <div className="grid grid-cols-2 gap-1.5 text-center font-mono text-[9px]">
-                  <div className="border border-[#222D2C] p-1 bg-[#EFECE6]">
-                    <span className="text-[8px] text-[#5B6360] uppercase block font-semibold">GENERATING</span>
-                    <span className="font-bold text-[#222D2C] text-[11px]">+420 W</span>
-                  </div>
-                  <div className="border border-[#222D2C] p-1 bg-[#EFECE6]">
-                    <span className="text-[8px] text-[#5B6360] uppercase block font-semibold">LOAD</span>
-                    <span className="font-bold text-[#222D2C] text-[11px]">-180 W</span>
-                  </div>
-                </div>
-              </div>
-            </Card>
+                      <div className="grid grid-cols-2 gap-1.5 font-mono text-[9px]">
+                        <div className="p-1.5 bg-[#FFFFFF] border border-[#222D2C]">
+                          <div className="font-bold text-[#D35B50] flex items-center gap-1">
+                            <Vote size={11} className="text-[#D35B50]" />
+                            <span>1. DIRECT CONSENSUS</span>
+                          </div>
+                          <p className="text-[#5B6360] text-[8px] mt-0.5 leading-tight">
+                            Horizontal decision-making with supermajority voting and no executive bosses.
+                          </p>
+                        </div>
 
-            {/* 2. Water Reserves */}
-            <Card 
-              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Water Reserves", "water", e)}
-              title="Water Reserves" 
-              accentColor="bg-[#3ABEAE] text-white"
-              isShaded={shadedSections["water"]}
-              onToggleShade={() => toggleShade("water")}
-              isExpanded={expandedSection === "water"}
-              onToggleExpand={() => toggleExpand("water")}
-            >
-              <div className="space-y-1.5">
-                <div className="flex justify-between items-baseline font-mono border-b border-[#222D2C]/20 pb-1 px-0.5">
-                  <span className="text-[9px] uppercase text-[#5B6360] font-semibold">Rain Catchment</span>
-                  <span className="text-xs font-bold text-[#222D2C] tabular-nums">1,240 L</span>
-                </div>
-                <div className="h-3 w-full bg-[#DFDDD7] border border-[#222D2C] p-0.5">
-                  <div className="h-full bg-[#3ABEAE]" style={{ width: "62%" }} />
-                </div>
-                <div className="flex justify-between items-center font-mono text-[9px] text-[#5B6360] px-0.5">
-                  <span>TDS: 42 PPM (PURITY 99.4%)</span>
-                  <span className="text-[#54C93F] font-bold">STABLE</span>
-                </div>
-              </div>
-            </Card>
+                        <div className="p-1.5 bg-[#FFFFFF] border border-[#222D2C]">
+                          <div className="font-bold text-[#1A66A6] flex items-center gap-1">
+                            <Heart size={11} className="text-[#1A66A6]" />
+                            <span>2. MUTUAL AID</span>
+                          </div>
+                          <p className="text-[#5B6360] text-[8px] mt-0.5 leading-tight">
+                            Needs & offers matched bilaterally without currency, landlords, or middlemen.
+                          </p>
+                        </div>
 
-            {/* 3. Mesh Network Telemetry */}
-            <Card 
-              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Mesh Network Telemetry", "mesh", e)}
-              title="Mesh Network Telemetry" 
-              accentColor="bg-[#F39D22] text-white"
-              isShaded={shadedSections["mesh"]}
-              onToggleShade={() => toggleShade("mesh")}
-              isExpanded={expandedSection === "mesh"}
-              onToggleExpand={() => toggleExpand("mesh")}
-            >
-              <div className="space-y-1.5">
-                <div className="flex justify-between items-baseline font-mono border-b border-[#222D2C]/20 pb-1 px-0.5">
-                  <span className="text-[10px] uppercase text-[#5B6360] font-semibold">Connected Peers</span>
-                  <span className="text-xs font-bold text-[#222D2C] tabular-nums">42 NODES ACTIVE</span>
-                </div>
+                        <div className="p-1.5 bg-[#FFFFFF] border border-[#222D2C]">
+                          <div className="font-bold text-[#8F57CB] flex items-center gap-1">
+                            <Hammer size={11} className="text-[#8F57CB]" />
+                            <span>3. BARN-RAISING</span>
+                          </div>
+                          <p className="text-[#5B6360] text-[8px] mt-0.5 leading-tight">
+                            Volunteer collective labor brigades and community tool lending libraries.
+                          </p>
+                        </div>
 
-                <div className="h-9 bg-[#EFECE6] border border-[#222D2C] flex items-end gap-1 p-1">
-                  {[40, 20, 60, 40, 90, 40, 70, 40, 20, 50, 40, 80, 40, 65, 30, 85].map((h, i) => (
-                    <div key={i} className="flex-1 bg-[#F39D22]" style={{ height: `${h}%` }} />
-                  ))}
-                </div>
-
-                <div className="p-1 bg-[#EFECE6] border border-[#222D2C] font-mono text-[9px] flex justify-between text-[#222D2C] px-1">
-                  <span>LORA: 98% RX</span>
-                  <span>PING: 42ms</span>
-                  <span>915.0 MHz</span>
-                </div>
-              </div>
-            </Card>
-
-            {/* 4. Nature's Clock & Day/5-Day Weather */}
-            <Card 
-              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Nature Clock & Weather", "nature", e)}
-              title="Nature Clock & Weather" 
-              accentColor="bg-[#F4D35A] !text-[#222D2C]"
-              isShaded={shadedSections["nature"]}
-              onToggleShade={() => toggleShade("nature")}
-              isExpanded={expandedSection === "nature"}
-              onToggleExpand={() => toggleExpand("nature")}
-            >
-              <div className="space-y-2">
-                <div className="p-1.5 bg-[#EFECE6] border border-[#222D2C] flex justify-between items-center font-mono">
-                  <div className="flex items-center gap-1.5">
-                    <CloudSun size={15} className="text-[#F39D22]" />
-                    <div>
-                      <div className="text-[11px] font-bold text-[#222D2C] leading-none">74°F (23°C)</div>
-                      <div className="text-[8px] text-[#5B6360]">PARTLY CLOUDY</div>
+                        <div className="p-1.5 bg-[#FFFFFF] border border-[#222D2C]">
+                          <div className="font-bold text-[#54C93F] flex items-center gap-1">
+                            <Radio size={11} className="text-[#54C93F]" />
+                            <span>4. ZERO-CLOUD MESH</span>
+                          </div>
+                          <p className="text-[#5B6360] text-[8px] mt-0.5 leading-tight">
+                            Local 915MHz LoRa & Wi-Fi mesh independent of Big Tech servers or telecom ISPs.
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="text-right text-[8px] text-[#5B6360] leading-tight">
-                    <div>WIND: WNW 8MPH</div>
-                    <div>HUMIDITY: 48%</div>
-                  </div>
-                </div>
 
-                <div>
-                  <span className="text-[8px] font-mono text-[#5B6360] uppercase block mb-1 font-semibold">5-DAY REGIONAL FORECAST</span>
-                  <div className="grid grid-cols-5 gap-1 font-mono text-[8px] text-center">
-                    <div className="border border-[#222D2C] p-1 bg-[#EFECE6]">
-                      <div className="font-bold text-[#5B6360]">MON</div>
-                      <Sun size={10} className="mx-auto my-0.5 text-[#F39D22]" />
-                      <div className="font-bold text-[#222D2C]">76°</div>
-                    </div>
-                    <div className="border border-[#222D2C] p-1 bg-[#EFECE6]">
-                      <div className="font-bold text-[#5B6360]">TUE</div>
-                      <CloudSun size={10} className="mx-auto my-0.5 text-[#F39D22]" />
-                      <div className="font-bold text-[#222D2C]">78°</div>
-                    </div>
-                    <div className="border border-[#222D2C] p-1 bg-[#EFECE6]">
-                      <div className="font-bold text-[#3ABEAE]">WED</div>
-                      <CloudRain size={10} className="mx-auto my-0.5 text-[#3ABEAE]" />
-                      <div className="font-bold text-[#3ABEAE]">72°</div>
-                    </div>
-                    <div className="border border-[#222D2C] p-1 bg-[#EFECE6]">
-                      <div className="font-bold text-[#5B6360]">THU</div>
-                      <Cloud size={10} className="mx-auto my-0.5 text-[#5B6360]" />
-                      <div className="font-bold text-[#222D2C]">69°</div>
-                    </div>
-                    <div className="border border-[#222D2C] p-1 bg-[#EFECE6]">
-                      <div className="font-bold text-[#5B6360]">FRI</div>
-                      <Sun size={10} className="mx-auto my-0.5 text-[#F39D22]" />
-                      <div className="font-bold text-[#222D2C]">74°</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-1">
-                  <div className="flex justify-between items-center text-[9px] font-mono font-bold uppercase px-0.5">
-                    <span>SUNRISE: 06:12</span>
-                    <span className="text-[#9e5d00] font-extrabold">NOON</span>
-                    <span>SUNSET: 19:42</span>
-                  </div>
-                  <div className="h-2.5 w-full border border-[#222D2C] flex overflow-hidden">
-                    <div className="w-[20%] bg-[#222D2C]" />
-                    <div className="w-[60%] bg-[#F4D35A] relative">
-                      <div className="absolute left-[65%] top-0 bottom-0 w-1 bg-white animate-pulse" />
-                    </div>
-                    <div className="w-[20%] bg-[#222D2C]" />
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            {/* 5. Local Comms & Radio */}
-            <div id="section-comms" data-section-id="comms" data-section-title="Local Comms & Messenger">
-              <Card
-                onClickCapture={(e) => isHelpMode && triggerSectionHelp("Local Comms & Messenger", "comms", e)}
-                title="Local Comms & Messenger"
-                accentColor="bg-[#1A66A6] text-white"
-                badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2 font-bold">LORA MESH</span>}
-                hint="Encrypted local mesh messaging channels, Ariel Churi's project logs & emergency broadcast dispatch."
-                isShaded={shadedSections["comms"]}
-                onToggleShade={() => toggleShade("comms")}
-                isExpanded={expandedSection === "comms"}
-                onToggleExpand={() => toggleExpand("comms")}
-              >
-                <div className="space-y-2 text-[10px] font-mono">
-                  {/* Comms Channel Filter Bar */}
-                  <div className="flex gap-1 overflow-x-auto pb-0.5">
-                    <button
-                      onClick={() => setCommsFilter("all")}
-                      className={cn(
-                        "px-1.5 py-0.5 text-[8px] font-bold uppercase border cursor-pointer transition-colors shrink-0",
-                        commsFilter === "all" ? "bg-[#222D2C] text-white border-[#222D2C]" : "bg-white text-[#222D2C] border-[#222D2C]"
-                      )}
-                    >
-                      ALL CHANNELS
-                    </button>
-                    <button
-                      onClick={() => setCommsFilter("ariel")}
-                      className={cn(
-                        "px-1.5 py-0.5 text-[8px] font-bold uppercase border cursor-pointer transition-colors shrink-0 flex items-center gap-1",
-                        commsFilter === "ariel" ? "bg-[#F4D35A] text-[#222D2C] border-[#222D2C] font-black" : "bg-white text-[#222D2C] border-[#222D2C] hover:bg-[#F4D35A]/30"
-                      )}
-                    >
-                      <span>★ ARIEL'S THREADS</span>
-                    </button>
-                    <button
-                      onClick={() => setCommsFilter("mesh")}
-                      className={cn(
-                        "px-1.5 py-0.5 text-[8px] font-bold uppercase border cursor-pointer transition-colors shrink-0",
-                        commsFilter === "mesh" ? "bg-[#222D2C] text-white border-[#222D2C]" : "bg-white text-[#222D2C] border-[#222D2C]"
-                      )}
-                    >
-                      MESH #1
-                    </button>
-                    <button
-                      onClick={() => setCommsFilter("emergency")}
-                      className={cn(
-                        "px-1.5 py-0.5 text-[8px] font-bold uppercase border cursor-pointer transition-colors shrink-0",
-                        commsFilter === "emergency" ? "bg-[#D35B50] text-white border-[#D35B50]" : "bg-white text-[#D35B50] border-[#D35B50]"
-                      )}
-                    >
-                      ALERT
-                    </button>
-                  </div>
-
-                  {/* Message Stream */}
-                  <div className="space-y-1.5 max-h-56 overflow-y-auto pr-0.5">
-                    {/* Thread 1: Ariel's MSU Telemetry */}
-                    {(commsFilter === "all" || commsFilter === "ariel" || commsFilter === "mesh") && (
-                      <div className="p-2 bg-[#FFFFFF] border border-[#222D2C] space-y-0.5">
-                        <div className="flex justify-between items-center text-[8px]">
-                          <span className="font-bold text-[#1A66A6] flex items-center gap-1">
-                            <span className="w-1.5 h-1.5 bg-[#F4D35A] rounded-full inline-block" />
-                            Ariel Churi (Node #742)
+                    {/* Right: Open Source Hosting & Setup Guide */}
+                    <div className="p-2.5 bg-[#EFECE6] border-2 border-[#222D2C] flex flex-col justify-between font-mono text-[9px] space-y-2">
+                      <div>
+                        <div className="flex justify-between items-center border-b border-[#222D2C]/20 pb-1 mb-1.5">
+                          <span className="font-bold text-[#1A66A6] uppercase flex items-center gap-1">
+                            <Radio size={12} className="text-[#F39D22]" />
+                            <span>Open-Source Self-Hosting</span>
                           </span>
-                          <span className="text-[#5B6360]">16:11 // [B7]</span>
+                          <span className="bg-[#F4D35A] text-[#222D2C] px-1 py-0.2 font-bold text-[8px]">SETUP: COMING SOON</span>
                         </div>
-                        <p className="text-[9px] text-[#222D2C] font-sans leading-tight">
-                          MSU Solar Intertie testing at 48.2V MPPT. Feeding +1.2kW into campus storage bank.
+                        <p className="text-[#3E4846] text-[9px] leading-snug">
+                          Run self-hosted on a Raspberry Pi, solar battery laptop, or local captive Wi-Fi portal without subscriptions or cloud dependencies.
                         </p>
+                        <pre className="text-[8px] bg-[#222D2C] text-[#54C93F] p-1.5 mt-1.5 font-mono overflow-x-auto">
+git clone https://github.com/arielchuri/TAZ.git
+cd TAZ && npm install && npm run dev
+                        </pre>
                       </div>
-                    )}
 
-                    {/* Thread 2: Ariel's Mills Coax Log */}
-                    {(commsFilter === "all" || commsFilter === "ariel" || commsFilter === "mesh") && (
-                      <div className="p-2 bg-[#FFFFFF] border border-[#222D2C] space-y-0.5">
-                        <div className="flex justify-between items-center text-[8px]">
-                          <span className="font-bold text-[#1A66A6] flex items-center gap-1">
-                            <span className="w-1.5 h-1.5 bg-[#F4D35A] rounded-full inline-block" />
-                            Ariel Churi (Node #742)
-                          </span>
-                          <span className="text-[#5B6360]">14:22 // [A4]</span>
-                        </div>
-                        <p className="text-[9px] text-[#222D2C] font-sans leading-tight">
-                          Mills high-altitude repeater coax checked. 98% packet RX on 915MHz channel 1.
-                        </p>
+                      <div className="flex justify-between items-center pt-1 border-t border-[#222D2C]/15 text-[8px]">
+                        <span className="text-[#1A66A6] font-bold">SECTOR 4 LOCAL PEER MESH</span>
+                        <button 
+                          onClick={() => toggleExpand("about")} 
+                          className="underline font-bold hover:text-[#1A66A6] cursor-pointer"
+                        >
+                          {expandedSection === "about" ? "Collapse ↑" : "Full Manifesto & Guide →"}
+                        </button>
                       </div>
-                    )}
-
-                    {/* Thread 3: Ariel's Tool Shed Log */}
-                    {(commsFilter === "all" || commsFilter === "ariel") && (
-                      <div className="p-2 bg-[#FFFFFF] border border-[#222D2C] space-y-0.5">
-                        <div className="flex justify-between items-center text-[8px]">
-                          <span className="font-bold text-[#1A66A6] flex items-center gap-1">
-                            <span className="w-1.5 h-1.5 bg-[#F4D35A] rounded-full inline-block" />
-                            Ariel Churi (Node #742)
-                          </span>
-                          <span className="text-[#5B6360]">Yesterday // [F5]</span>
-                        </div>
-                        <p className="text-[9px] text-[#222D2C] font-sans leading-tight">
-                          Delivering spare soldering iron and multimeter to Walnut Street Repair Guild.
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Thread 4: Elena Rostova */}
-                    {(commsFilter === "all" || commsFilter === "mesh") && (
-                      <div className="p-2 bg-[#EFECE6] border border-[#222D2C] space-y-0.5">
-                        <div className="flex justify-between items-center text-[8px]">
-                          <span className="font-bold text-[#222D2C]">Elena Rostova (Node #304)</span>
-                          <span className="text-[#5B6360]">15:45 // [C6]</span>
-                        </div>
-                        <p className="text-[9px] text-[#3E4846] font-sans leading-tight">
-                          First aid clinic restocked with trauma dressings on Valley Road.
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Thread 5: Emergency Broadcast */}
-                    {(commsFilter === "all" || commsFilter === "emergency") && (
-                      <div className="p-2 bg-[#D35B50]/15 border border-[#D35B50] space-y-0.5">
-                        <div className="flex justify-between items-center text-[8px]">
-                          <span className="font-bold text-[#D35B50]">EMERGENCY BROADCAST</span>
-                          <span className="text-[#5B6360]">12:00 // REGIONAL</span>
-                        </div>
-                        <p className="text-[9px] text-[#222D2C] font-sans leading-tight">
-                          Weather ephemeris: Light evening showers approaching from WNW. Rain barrels open.
-                        </p>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Quick Compose Input */}
-                  <div className="flex gap-1 pt-1 border-t border-[#222D2C]/20">
-                    <input
-                      type="text"
-                      placeholder="Broadcast to local mesh as Ariel Churi..."
-                      value={newCommsMessage}
-                      onChange={(e) => setNewCommsMessage(e.target.value)}
-                      className="flex-1 bg-white border border-[#222D2C] px-2 py-1 text-[9px] font-sans focus:outline-none focus:border-[#1A66A6]"
-                    />
-                    <button
-                      onClick={() => {
-                        if (newCommsMessage.trim()) {
-                          setNewCommsMessage("");
-                        }
-                      }}
-                      className="bg-[#1A66A6] hover:bg-[#145082] text-white px-2 py-1 text-[9px] font-bold uppercase cursor-pointer"
-                    >
-                      <Send size={11} />
-                    </button>
+                    </div>
                   </div>
                 </div>
               </Card>
             </div>
 
-            {/* 6. Knowledge Base */}
-            <Card 
-              onClickCapture={(e) => isHelpMode && triggerSectionHelp("Knowledge Base", "knowledge", e)}
-              title="Knowledge Base" 
-              accentColor="bg-[#8F57CB] text-white"
-              isShaded={shadedSections["knowledge"]}
-              onToggleShade={() => toggleShade("knowledge")}
-              isExpanded={expandedSection === "knowledge"}
-              onToggleExpand={() => toggleExpand("knowledge")}
-            >
-              <div className="space-y-1">
-                <FileItem name="Solar_Repair_v2.pdf" size="2.4MB" icon={<FileText size={12} />} />
-                <FileItem name="Mesh_Protocol.md" size="12KB" icon={<FileCode size={12} />} />
-                <FileItem name="Local_Herb_Guide.pdf" size="5.1MB" icon={<BookOpen size={12} />} />
-              </div>
-              <Tip label="Search offline wiki documents" notImplemented={true}>
-                <Button variant="outline" size="xs" className="w-full mt-1 py-0.5 text-[10px] h-[22px]">Browse All Docs</Button>
-              </Tip>
-            </Card>
+            {/* Subgrid: Column 2 (Left 4 cols) & Column 3 (Right 4 cols) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              
+              {/* SUBCOLUMN 1 (Col 2): Matcher, Ariel's Projects, Governance */}
+              <div className="flex flex-col gap-4">
+                
+                {/* 1. Mutual Aid Matcher */}
+                <div id="section-matcher" data-section-id="matcher" data-section-title="Peer-to-Peer Mutual Aid Matcher">
+                  <Card 
+                    onClickCapture={(e) => isHelpMode && triggerSectionHelp("Peer-to-Peer Mutual Aid Matcher", "matcher", e)}
+                    title="Mutual Aid Matcher" 
+                    accentColor="bg-[#1A66A6]"
+                    badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2">SEC 2.2</span>}
+                    headerActions={
+                      <Tip label="Post need or offer to board" notImplemented={true}>
+                        <Button variant="primary" size="xs" className="!bg-[#0F3D64] hover:!bg-[#08233a] px-2 py-0.5 text-[10px] h-[22px]">
+                          <Plus size={11} /> Post
+                        </Button>
+                      </Tip>
+                    }
+                    hint="Decentralized give/take matching protocol. Operates offline over LoRa mesh."
+                    isShaded={shadedSections["matcher"]}
+                    onToggleShade={() => toggleShade("matcher")}
+                    isExpanded={expandedSection === "matcher"}
+                    onToggleExpand={() => toggleExpand("matcher")}
+                  >
+                    <div className="flex border-b border-[#222D2C] -mx-2.5 -mt-2.5 mb-2 bg-[#DFDDD7] shrink-0">
+                      <button
+                        onClick={() => setViewMode("take")}
+                        className={cn(
+                          "flex-1 py-1 px-2 text-[10px] font-bold uppercase tracking-wider transition-colors border-none cursor-pointer flex items-center justify-center gap-1.5 font-mono leading-normal h-[28px]",
+                          viewMode === "take" ? "bg-[#1A66A6] text-white" : "bg-transparent text-[#5B6360] hover:text-[#222D2C]"
+                        )}
+                        style={{ borderRadius: 0 }}
+                      >
+                        <ShieldAlert size={12} />
+                        <span>Needs ({needs.length})</span>
+                      </button>
+                      <button
+                        onClick={() => setViewMode("give")}
+                        className={cn(
+                          "flex-1 py-1 px-2 text-[10px] font-bold uppercase tracking-wider transition-colors border-none cursor-pointer flex items-center justify-center gap-1.5 font-mono leading-normal h-[28px]",
+                          viewMode === "give" ? "bg-[#1A66A6] text-white" : "bg-transparent text-[#5B6360] hover:text-[#222D2C]"
+                        )}
+                        style={{ borderRadius: 0 }}
+                      >
+                        <Heart size={12} />
+                        <span>Offers ({offers.length})</span>
+                      </button>
+                    </div>
 
+                    <div className="flex items-center gap-1 mb-2 overflow-x-auto pb-0.5 shrink-0">
+                      <span className="text-[9px] font-mono font-bold text-[#5B6360] uppercase px-0.5 py-0.5">FILTER:</span>
+                      <FilterChip active={activeFilter === "all"} onClick={() => setActiveFilter("all")} label="ALL" />
+                      <FilterChip active={activeFilter === "water"} onClick={() => setActiveFilter("water")} icon={<Water size={10} />} label="H2O" />
+                      <FilterChip active={activeFilter === "medical"} onClick={() => setActiveFilter("medical")} icon={<Pill size={10} />} label="MED" />
+                      <FilterChip active={activeFilter === "power"} onClick={() => setActiveFilter("power")} icon={<Zap size={10} />} label="PWR" />
+                      <FilterChip active={activeFilter === "food"} onClick={() => setActiveFilter("food")} icon={<Utensils size={10} />} label="FOOD" />
+                    </div>
+
+                    <div className="flex flex-col gap-1.5 overflow-y-auto max-h-72 pr-0.5">
+                      {viewMode === "take" ? (
+                        filteredNeeds.map((item) => (
+                          <div 
+                            key={item.id}
+                            className="p-2 bg-[#EFECE6] border border-[#222D2C] hover:border-[#1A66A6] flex justify-between items-center gap-2 transition-colors"
+                          >
+                            <div className="flex items-center gap-2 min-w-0">
+                              <div className={cn("p-1 bg-white border shrink-0", item.color)}>{item.icon}</div>
+                              <div className="min-w-0 py-0.5">
+                                <div className="font-bold text-[11px] text-[#222D2C] leading-tight truncate">{item.title}</div>
+                                <div className="font-mono text-[9px] text-[#5B6360] leading-tight mt-0.5">{item.user} • {item.time}</div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-1.5 shrink-0">
+                              <span className={cn(
+                                "font-mono text-[9px] font-bold px-1.5 py-0.5 border uppercase tracking-wider h-[20px] flex items-center",
+                                item.urgency === "Critical" ? "bg-[#D35B50]/15 text-[#D35B50] border-[#D35B50]" : "bg-[#F39D22]/15 text-[#9e5d00] border-[#F39D22]"
+                              )}>
+                                {item.urgency}
+                              </span>
+                              <Tip label="Fulfill request" notImplemented={true}>
+                                <Button variant="primary" size="xs" className="h-[22px]">Fulfill</Button>
+                              </Tip>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        filteredOffers.map((item) => (
+                          <div 
+                            key={item.id}
+                            className="p-2 bg-[#EFECE6] border border-[#222D2C] hover:border-[#1A66A6] flex justify-between items-center gap-2 transition-colors"
+                          >
+                            <div className="flex items-center gap-2 min-w-0">
+                              <div className={cn("p-1 bg-white border shrink-0", item.color)}>{item.icon}</div>
+                              <div className="min-w-0 py-0.5">
+                                <div className="font-bold text-[11px] text-[#222D2C] leading-tight truncate">{item.title}</div>
+                                <div className="font-mono text-[9px] text-[#5B6360] leading-tight mt-0.5">{item.user} • AVAIL: {item.available}</div>
+                              </div>
+                            </div>
+                            <Tip label="Request assistance" notImplemented={true}>
+                              <Button variant="secondary" size="xs" className="shrink-0 h-[22px]">Request</Button>
+                            </Tip>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </Card>
+                </div>
+
+                {/* 2. Ariel's Community Projects & Work Orders */}
+                <div id="section-ariel_projects" data-section-id="ariel_projects" data-section-title="Ariel's Community Projects">
+                  <Card
+                    onClickCapture={(e) => isHelpMode && triggerSectionHelp("Ariel's Community Projects", "ariel_projects", e)}
+                    title="Ariel's Community Projects"
+                    accentColor="bg-[#222D2C] text-white"
+                    badge={<span className="text-[9px] font-mono uppercase bg-[#F4D35A] text-[#222D2C] px-1.5 py-0.2 font-bold">{arielProjects.length} ACTIVE INITIATIVES</span>}
+                    headerActions={
+                      <Tip label="Log project hours or request tools">
+                        <Button variant="outline" size="xs" className="!bg-white text-[#222D2C] text-[9px] h-[20px] px-1.5 font-bold uppercase">
+                          + Log Task
+                        </Button>
+                      </Tip>
+                    }
+                    hint="Lead engineering tasks, microgrid installs, RF maintenance & volunteer coordination assigned to Ariel Churi."
+                    isShaded={shadedSections["ariel_projects"]}
+                    onToggleShade={() => toggleShade("ariel_projects")}
+                    isExpanded={expandedSection === "ariel_projects"}
+                    onToggleExpand={() => toggleExpand("ariel_projects")}
+                  >
+                    <div className="space-y-2 font-mono text-[10px]">
+                      {arielProjects.map((p) => (
+                        <div key={p.id} className="p-2.5 bg-[#FFFFFF] border-2 border-[#222D2C] shadow-sm hover:border-[#1A66A6] transition-colors">
+                          <div className="flex justify-between items-start mb-1">
+                            <div className="flex items-center gap-1.5">
+                              <span className={cn("text-[8px] font-bold px-1.5 py-0.2 uppercase", p.priorityColor)}>
+                                {p.priority}
+                              </span>
+                              <span className="font-bold text-xs text-[#222D2C]">{p.title}</span>
+                            </div>
+                            <span className="text-[9px] text-[#5B6360] bg-[#EFECE6] px-1.5 py-0.2 border border-[#222D2C]/20">{p.deadline}</span>
+                          </div>
+                          
+                          <div className="text-[9px] text-[#1A66A6] font-bold mb-1 flex items-center gap-1">
+                            <span>📍 {p.location}</span>
+                            <span>• Role: {p.role}</span>
+                          </div>
+
+                          <p className="text-[9px] text-[#3E4846] leading-snug mb-2 font-sans">{p.status}</p>
+
+                          <div className="space-y-1 pt-1 border-t border-[#222D2C]/15">
+                            <div className="flex justify-between text-[8px] font-bold text-[#5B6360]">
+                              <span>PROGRESS // {p.progress}% COMPLETE</span>
+                              <span>{p.volunteers} VOLUNTEERS ON-CALL</span>
+                            </div>
+                            <div className="h-2 w-full bg-[#DFDDD7] border border-[#222D2C] p-0.2">
+                              <div 
+                                className="h-full bg-[#1A66A6] transition-all" 
+                                style={{ width: `${p.progress}%` }} 
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </Card>
+                </div>
+
+                {/* 3. Governance & Direct Consensus */}
+                <div id="section-governance" data-section-id="governance" data-section-title="Governance & Consensus">
+                  <Card
+                    onClickCapture={(e) => isHelpMode && triggerSectionHelp("Governance & Consensus", "governance", e)}
+                    title="Governance & Consensus"
+                    accentColor="bg-[#0F3D64] text-white"
+                    badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2">ASSEMBLY</span>}
+                    hint="Direct consensus democracy: active neighborhood referendums & quorum voting."
+                    isShaded={shadedSections["governance"]}
+                    onToggleShade={() => toggleShade("governance")}
+                    isExpanded={expandedSection === "governance"}
+                    onToggleExpand={() => toggleExpand("governance")}
+                  >
+                    <div className="space-y-2">
+                      <div className="p-2.5 bg-[#EFECE6] border border-[#222D2C]">
+                        <div className="flex justify-between items-start mb-1">
+                          <span className="font-bold text-[11px] text-[#222D2C]">Solar Array Expansion (Phase 2)</span>
+                          <span className="font-mono text-[9px] bg-[#F4D35A] px-1 font-bold">48H LEFT</span>
+                        </div>
+                        <p className="text-[9px] text-[#5B6360] leading-snug mb-2">
+                          Proposal to allocate 12 surplus 400W bifacial solar panels to Upper Montclair Community Center.
+                        </p>
+                        <div className="space-y-1">
+                          <div className="flex justify-between font-mono text-[9px] font-bold">
+                            <span>CONSENSUS PROGRESS (42/45 PEERS)</span>
+                            <span className="text-[#54C93F]">80% REACHED</span>
+                          </div>
+                          <div className="h-2.5 w-full bg-[#DFDDD7] border border-[#222D2C] p-0.2">
+                            <div className="h-full bg-[#0F3D64]" style={{ width: "80%" }} />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <Tip label="Vote on referendum" notImplemented={true}><Button variant="outline" size="xs" className="flex-1 h-[24px]">Cast Vote</Button></Tip>
+                        <Tip label="Enter general assembly" notImplemented={true}><Button variant="primary" size="xs" className="flex-1 h-[24px] !bg-[#0F3D64]">Enter Assembly</Button></Tip>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+
+              </div>
+
+              {/* SUBCOLUMN 2 (Col 3): Calendar, Labor, Telemetry & Comms */}
+              <div className="flex flex-col gap-4">
+                
+                {/* 1. Community Calendar & Fellowship */}
+                <div id="section-calendar" data-section-id="calendar" data-section-title="Community Calendar & Fellowship">
+                  <Card
+                    onClickCapture={(e) => isHelpMode && triggerSectionHelp("Community Calendar & Fellowship", "calendar", e)}
+                    title="Community Calendar & Fellowship"
+                    accentColor="bg-[#54C93F] text-white"
+                    badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2">EVENTS</span>}
+                    headerActions={
+                      <Tip label="Add new gathering" notImplemented={true}>
+                        <Button variant="primary" size="xs" className="!bg-[#3f9e2f] hover:!bg-[#2e7a21] px-2 py-0.5 text-[10px] h-[22px]">
+                          <Plus size={11} /> Event
+                        </Button>
+                      </Tip>
+                    }
+                    hint="Wholesome gatherings, barn raising, fellowship potlucks & workshops."
+                    isShaded={shadedSections["calendar"]}
+                    onToggleShade={() => toggleShade("calendar")}
+                    isExpanded={expandedSection === "calendar"}
+                    onToggleExpand={() => toggleExpand("calendar")}
+                  >
+                    <div className="flex flex-col gap-1.5 max-h-72 overflow-y-auto pr-0.5">
+                      {calendarEvents.map((ev) => (
+                        <div
+                          key={ev.id}
+                          className="p-2 bg-[#EFECE6] border border-[#222D2C] hover:border-[#54C93F] transition-colors flex items-center justify-between gap-2"
+                        >
+                          <div className="flex items-center gap-2 min-w-0">
+                            <div className="w-9 h-9 bg-[#FFFFFF] border border-[#222D2C] flex flex-col items-center justify-center shrink-0 font-mono">
+                              <span className="text-[7px] font-bold text-[#D35B50] uppercase leading-none">{ev.date.split(" ")[0]}</span>
+                              <span className="text-[11px] font-black text-[#222D2C] leading-none mt-0.5">{ev.date.split(" ")[2]}</span>
+                            </div>
+                            <div className="min-w-0">
+                              <span className={cn("text-[7px] font-mono font-bold px-1 py-0.2 uppercase leading-none inline-block", ev.tagColor)}>
+                                {ev.type}
+                              </span>
+                              <div className="font-bold text-[10px] text-[#222D2C] truncate leading-tight mt-0.5">{ev.title}</div>
+                              <div className="font-mono text-[8px] text-[#5B6360] truncate">{ev.time} • {ev.location}</div>
+                            </div>
+                          </div>
+                          <div className="flex flex-col items-end gap-1 shrink-0">
+                            <span className="font-mono text-[8px] text-[#54C93F] font-bold">{ev.rsvpCount} RSVP</span>
+                            <Tip label="RSVP to event" notImplemented={true}>
+                              <Button variant="primary" size="xs" className="h-[20px] px-2 text-[9px] !bg-[#54C93F]">Join</Button>
+                            </Tip>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </Card>
+                </div>
+
+                {/* 2. Labor & Infrastructure Tasks */}
+                <div id="section-labor" data-section-id="labor" data-section-title="Labor & Tool Guilds">
+                  <Card
+                    onClickCapture={(e) => isHelpMode && triggerSectionHelp("Labor & Tool Guilds", "labor", e)}
+                    title="Labor & Tool Guilds"
+                    accentColor="bg-[#F39D22] text-white"
+                    badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2">ROSTER</span>}
+                    hint="Community work shifts, tool lending & scheduled repairs."
+                    isShaded={shadedSections["labor"]}
+                    onToggleShade={() => toggleShade("labor")}
+                    isExpanded={expandedSection === "labor"}
+                    onToggleExpand={() => toggleExpand("labor")}
+                  >
+                    <div className="space-y-1.5">
+                      <div className="border border-[#222D2C] p-2 bg-[#EFECE6] flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <Wrench className="text-[#F39D22]" size={16} />
+                          <div>
+                            <div className="font-bold text-[11px] uppercase">Infrastructure Stable</div>
+                            <div className="font-mono text-[9px] text-[#5B6360]">0 critical work orders today</div>
+                          </div>
+                        </div>
+                        <span className="font-mono text-[9px] bg-[#54C93F] text-white px-1.5 py-0.5 font-bold">NORMAL</span>
+                      </div>
+                      <div className="flex gap-2">
+                        <Tip label="View maintenance roster" notImplemented={true}><Button variant="yellow" size="xs" className="flex-1 h-[24px]">Check Task Board</Button></Tip>
+                        <Tip label="Log volunteer hours" notImplemented={true}><Button variant="outline" size="xs" className="flex-1 h-[24px]">Log Labor Hours</Button></Tip>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+
+                {/* 3. Microgrid Power */}
+                <div id="section-power" data-section-id="power" data-section-title="Microgrid Power">
+                  <Card 
+                    onClickCapture={(e) => isHelpMode && triggerSectionHelp("Microgrid Power", "power", e)}
+                    title="Microgrid Power" 
+                    accentColor="bg-[#54C93F] text-white"
+                    isShaded={shadedSections["power"]}
+                    onToggleShade={() => toggleShade("power")}
+                    isExpanded={expandedSection === "power"}
+                    onToggleExpand={() => toggleExpand("power")}
+                  >
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between items-baseline font-mono border-b border-[#222D2C]/20 pb-1 px-0.5">
+                        <span className="text-[9px] uppercase text-[#5B6360] font-semibold">Storage Bank</span>
+                        <span className="text-xs font-bold text-[#222D2C] tabular-nums">8.4 / 10 kWh</span>
+                      </div>
+                      <div className="h-3 w-full bg-[#DFDDD7] border border-[#222D2C] p-0.5">
+                        <div className="h-full bg-[#54C93F]" style={{ width: "84%" }} />
+                      </div>
+                      <div className="grid grid-cols-2 gap-1.5 text-center font-mono text-[9px]">
+                        <div className="border border-[#222D2C] p-1 bg-[#EFECE6]">
+                          <span className="text-[8px] text-[#5B6360] uppercase block font-semibold">GENERATING</span>
+                          <span className="font-bold text-[#222D2C] text-[11px]">+420 W</span>
+                        </div>
+                        <div className="border border-[#222D2C] p-1 bg-[#EFECE6]">
+                          <span className="text-[8px] text-[#5B6360] uppercase block font-semibold">LOAD</span>
+                          <span className="font-bold text-[#222D2C] text-[11px]">-180 W</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+
+                {/* 4. Water Reserves */}
+                <div id="section-water" data-section-id="water" data-section-title="Water Reserves">
+                  <Card 
+                    onClickCapture={(e) => isHelpMode && triggerSectionHelp("Water Reserves", "water", e)}
+                    title="Water Reserves" 
+                    accentColor="bg-[#3ABEAE] text-white"
+                    isShaded={shadedSections["water"]}
+                    onToggleShade={() => toggleShade("water")}
+                    isExpanded={expandedSection === "water"}
+                    onToggleExpand={() => toggleExpand("water")}
+                  >
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between items-baseline font-mono border-b border-[#222D2C]/20 pb-1 px-0.5">
+                        <span className="text-[9px] uppercase text-[#5B6360] font-semibold">Rain Catchment</span>
+                        <span className="text-xs font-bold text-[#222D2C] tabular-nums">1,240 L</span>
+                      </div>
+                      <div className="h-3 w-full bg-[#DFDDD7] border border-[#222D2C] p-0.5">
+                        <div className="h-full bg-[#3ABEAE]" style={{ width: "62%" }} />
+                      </div>
+                      <div className="flex justify-between items-center font-mono text-[9px] text-[#5B6360] px-0.5">
+                        <span>TDS: 42 PPM (PURITY 99.4%)</span>
+                        <span className="text-[#54C93F] font-bold">STABLE</span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+
+                {/* 5. Mesh Network Telemetry */}
+                <div id="section-mesh" data-section-id="mesh" data-section-title="Mesh Network Telemetry">
+                  <Card 
+                    onClickCapture={(e) => isHelpMode && triggerSectionHelp("Mesh Network Telemetry", "mesh", e)}
+                    title="Mesh Network Telemetry" 
+                    accentColor="bg-[#F39D22] text-white"
+                    isShaded={shadedSections["mesh"]}
+                    onToggleShade={() => toggleShade("mesh")}
+                    isExpanded={expandedSection === "mesh"}
+                    onToggleExpand={() => toggleExpand("mesh")}
+                  >
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between items-baseline font-mono border-b border-[#222D2C]/20 pb-1 px-0.5">
+                        <span className="text-[10px] uppercase text-[#5B6360] font-semibold">Connected Peers</span>
+                        <span className="text-xs font-bold text-[#222D2C] tabular-nums">42 NODES ACTIVE</span>
+                      </div>
+
+                      <div className="h-9 bg-[#EFECE6] border border-[#222D2C] flex items-end gap-1 p-1">
+                        {[40, 20, 60, 40, 90, 40, 70, 40, 20, 50, 40, 80, 40, 65, 30, 85].map((h, i) => (
+                          <div key={i} className="flex-1 bg-[#F39D22]" style={{ height: `${h}%` }} />
+                        ))}
+                      </div>
+
+                      <div className="p-1 bg-[#EFECE6] border border-[#222D2C] font-mono text-[9px] flex justify-between text-[#222D2C] px-1">
+                        <span>LORA: 98% RX</span>
+                        <span>PING: 42ms</span>
+                        <span>915.0 MHz</span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+
+                {/* 6. Nature's Clock & Day/5-Day Weather */}
+                <div id="section-nature" data-section-id="nature" data-section-title="Nature Clock & Weather">
+                  <Card 
+                    onClickCapture={(e) => isHelpMode && triggerSectionHelp("Nature Clock & Weather", "nature", e)}
+                    title="Nature Clock & Weather" 
+                    accentColor="bg-[#F4D35A] !text-[#222D2C]"
+                    isShaded={shadedSections["nature"]}
+                    onToggleShade={() => toggleShade("nature")}
+                    isExpanded={expandedSection === "nature"}
+                    onToggleExpand={() => toggleExpand("nature")}
+                  >
+                    <div className="space-y-2">
+                      <div className="p-1.5 bg-[#EFECE6] border border-[#222D2C] flex justify-between items-center font-mono">
+                        <div className="flex items-center gap-1.5">
+                          <CloudSun size={15} className="text-[#F39D22]" />
+                          <div>
+                            <div className="text-[11px] font-bold text-[#222D2C] leading-none">74°F (23°C)</div>
+                            <div className="text-[8px] text-[#5B6360]">PARTLY CLOUDY</div>
+                          </div>
+                        </div>
+                        <div className="text-right text-[8px] text-[#5B6360] leading-tight">
+                          <div>WIND: WNW 8MPH</div>
+                          <div>HUMIDITY: 48%</div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <span className="text-[8px] font-mono text-[#5B6360] uppercase block mb-1 font-semibold">5-DAY REGIONAL FORECAST</span>
+                        <div className="grid grid-cols-5 gap-1 font-mono text-[8px] text-center">
+                          <div className="border border-[#222D2C] p-1 bg-[#EFECE6]">
+                            <div className="font-bold text-[#5B6360]">MON</div>
+                            <Sun size={10} className="mx-auto my-0.5 text-[#F39D22]" />
+                            <div className="font-bold text-[#222D2C]">76°</div>
+                          </div>
+                          <div className="border border-[#222D2C] p-1 bg-[#EFECE6]">
+                            <div className="font-bold text-[#5B6360]">TUE</div>
+                            <CloudSun size={10} className="mx-auto my-0.5 text-[#F39D22]" />
+                            <div className="font-bold text-[#222D2C]">78°</div>
+                          </div>
+                          <div className="border border-[#222D2C] p-1 bg-[#EFECE6]">
+                            <div className="font-bold text-[#3ABEAE]">WED</div>
+                            <CloudRain size={10} className="mx-auto my-0.5 text-[#3ABEAE]" />
+                            <div className="font-bold text-[#222D2C]">68°</div>
+                          </div>
+                          <div className="border border-[#222D2C] p-1 bg-[#EFECE6]">
+                            <div className="font-bold text-[#5B6360]">THU</div>
+                            <Cloud size={10} className="mx-auto my-0.5 text-[#5B6360]" />
+                            <div className="font-bold text-[#222D2C]">72°</div>
+                          </div>
+                          <div className="border border-[#222D2C] p-1 bg-[#EFECE6]">
+                            <div className="font-bold text-[#5B6360]">FRI</div>
+                            <Sun size={10} className="mx-auto my-0.5 text-[#F39D22]" />
+                            <div className="font-bold text-[#222D2C]">75°</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="pt-1.5 border-t border-[#222D2C]/20 font-mono text-[9px]">
+                        <div className="flex justify-between items-center mb-1">
+                          <span>SUNRISE: 06:14</span>
+                          <span className="font-bold text-[#1A66A6]">SOLAR NOON: 13:02</span>
+                          <span>SUNSET: 19:42</span>
+                        </div>
+                        <div className="h-2.5 w-full border border-[#222D2C] flex overflow-hidden">
+                          <div className="w-[20%] bg-[#222D2C]" />
+                          <div className="w-[60%] bg-[#F4D35A] relative">
+                            <div className="absolute left-[65%] top-0 bottom-0 w-1 bg-white animate-pulse" />
+                          </div>
+                          <div className="w-[20%] bg-[#222D2C]" />
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+
+                {/* 7. Local Comms & Radio */}
+                <div id="section-comms" data-section-id="comms" data-section-title="Local Comms & Messenger">
+                  <Card
+                    onClickCapture={(e) => isHelpMode && triggerSectionHelp("Local Comms & Messenger", "comms", e)}
+                    title="Local Comms & Messenger"
+                    accentColor="bg-[#1A66A6] text-white"
+                    badge={<span className="text-[9px] font-mono uppercase bg-white/20 px-1 py-0.2 font-bold">LORA MESH</span>}
+                    hint="Encrypted local mesh messaging channels, Ariel Churi's project logs & emergency broadcast dispatch."
+                    isShaded={shadedSections["comms"]}
+                    onToggleShade={() => toggleShade("comms")}
+                    isExpanded={expandedSection === "comms"}
+                    onToggleExpand={() => toggleExpand("comms")}
+                  >
+                    <div className="space-y-2 text-[10px] font-mono">
+                      {/* Comms Channel Filter Bar */}
+                      <div className="flex gap-1 overflow-x-auto pb-0.5">
+                        <button
+                          onClick={() => setCommsFilter("all")}
+                          className={cn(
+                            "px-1.5 py-0.5 text-[8px] font-bold uppercase border cursor-pointer transition-colors shrink-0",
+                            commsFilter === "all" ? "bg-[#222D2C] text-white border-[#222D2C]" : "bg-white text-[#222D2C] border-[#222D2C]"
+                          )}
+                        >
+                          ALL CHANNELS
+                        </button>
+                        <button
+                          onClick={() => setCommsFilter("ariel")}
+                          className={cn(
+                            "px-1.5 py-0.5 text-[8px] font-bold uppercase border cursor-pointer transition-colors shrink-0 flex items-center gap-1",
+                            commsFilter === "ariel" ? "bg-[#F4D35A] text-[#222D2C] border-[#222D2C] font-black" : "bg-white text-[#222D2C] border-[#222D2C] hover:bg-[#F4D35A]/30"
+                          )}
+                        >
+                          <span>★ ARIEL'S THREADS</span>
+                        </button>
+                        <button
+                          onClick={() => setCommsFilter("mesh")}
+                          className={cn(
+                            "px-1.5 py-0.5 text-[8px] font-bold uppercase border cursor-pointer transition-colors shrink-0",
+                            commsFilter === "mesh" ? "bg-[#222D2C] text-white border-[#222D2C]" : "bg-white text-[#222D2C] border-[#222D2C]"
+                          )}
+                        >
+                          MESH #1
+                        </button>
+                        <button
+                          onClick={() => setCommsFilter("emergency")}
+                          className={cn(
+                            "px-1.5 py-0.5 text-[8px] font-bold uppercase border cursor-pointer transition-colors shrink-0",
+                            commsFilter === "emergency" ? "bg-[#D35B50] text-white border-[#D35B50]" : "bg-white text-[#D35B50] border-[#D35B50]"
+                          )}
+                        >
+                          ALERT
+                        </button>
+                      </div>
+
+                      {/* Message Stream */}
+                      <div className="space-y-1.5 max-h-56 overflow-y-auto pr-0.5">
+                        {/* Thread 1: Ariel's MSU Telemetry */}
+                        {(commsFilter === "all" || commsFilter === "ariel" || commsFilter === "mesh") && (
+                          <div className="p-2 bg-[#FFFFFF] border border-[#222D2C] space-y-0.5">
+                            <div className="flex justify-between items-center text-[8px]">
+                              <span className="font-bold text-[#1A66A6] flex items-center gap-1">
+                                <span className="w-1.5 h-1.5 bg-[#F4D35A] rounded-full inline-block" />
+                                Ariel Churi (Node #742)
+                              </span>
+                              <span className="text-[#5B6360]">16:11 // [B7]</span>
+                            </div>
+                            <p className="text-[9px] text-[#222D2C] font-sans leading-tight">
+                              MSU Solar Intertie testing at 48.2V MPPT. Feeding +1.2kW into campus storage bank.
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Thread 2: Ariel's Mills Coax Log */}
+                        {(commsFilter === "all" || commsFilter === "ariel" || commsFilter === "mesh") && (
+                          <div className="p-2 bg-[#FFFFFF] border border-[#222D2C] space-y-0.5">
+                            <div className="flex justify-between items-center text-[8px]">
+                              <span className="font-bold text-[#1A66A6] flex items-center gap-1">
+                                <span className="w-1.5 h-1.5 bg-[#F4D35A] rounded-full inline-block" />
+                                Ariel Churi (Node #742)
+                              </span>
+                              <span className="text-[#5B6360]">14:22 // [A4]</span>
+                            </div>
+                            <p className="text-[9px] text-[#222D2C] font-sans leading-tight">
+                              Mills high-altitude repeater coax checked. 98% packet RX on 915MHz channel 1.
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Thread 3: Ariel's Tool Shed Log */}
+                        {(commsFilter === "all" || commsFilter === "ariel") && (
+                          <div className="p-2 bg-[#FFFFFF] border border-[#222D2C] space-y-0.5">
+                            <div className="flex justify-between items-center text-[8px]">
+                              <span className="font-bold text-[#1A66A6] flex items-center gap-1">
+                                <span className="w-1.5 h-1.5 bg-[#F4D35A] rounded-full inline-block" />
+                                Ariel Churi (Node #742)
+                              </span>
+                              <span className="text-[#5B6360]">Yesterday // [F5]</span>
+                            </div>
+                            <p className="text-[9px] text-[#222D2C] font-sans leading-tight">
+                              Delivering spare soldering iron and multimeter to Walnut Street Repair Guild.
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Thread 4: Elena Rostova */}
+                        {(commsFilter === "all" || commsFilter === "mesh") && (
+                          <div className="p-2 bg-[#EFECE6] border border-[#222D2C] space-y-0.5">
+                            <div className="flex justify-between items-center text-[8px]">
+                              <span className="font-bold text-[#222D2C]">Elena Rostova (Node #304)</span>
+                              <span className="text-[#5B6360]">15:45 // [C6]</span>
+                            </div>
+                            <p className="text-[9px] text-[#3E4846] font-sans leading-tight">
+                              First aid clinic restocked with trauma dressings on Valley Road.
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Thread 5: Emergency Broadcast */}
+                        {(commsFilter === "all" || commsFilter === "emergency") && (
+                          <div className="p-2 bg-[#D35B50]/15 border border-[#D35B50] space-y-0.5">
+                            <div className="flex justify-between items-center text-[8px]">
+                              <span className="font-bold text-[#D35B50]">EMERGENCY BROADCAST</span>
+                              <span className="text-[#5B6360]">12:00 // REGIONAL</span>
+                            </div>
+                            <p className="text-[9px] text-[#222D2C] font-sans leading-tight">
+                              Weather ephemeris: Light evening showers approaching from WNW. Rain barrels open.
+                            </p>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Quick Compose Input */}
+                      <div className="flex gap-1 pt-1 border-t border-[#222D2C]/20">
+                        <input
+                          type="text"
+                          placeholder="Broadcast to local mesh as Ariel Churi..."
+                          value={newCommsMessage}
+                          onChange={(e) => setNewCommsMessage(e.target.value)}
+                          className="flex-1 bg-white border border-[#222D2C] px-2 py-1 text-[9px] font-sans focus:outline-none focus:border-[#1A66A6]"
+                        />
+                        <button
+                          onClick={() => {
+                            if (newCommsMessage.trim()) {
+                              setNewCommsMessage("");
+                            }
+                          }}
+                          className="bg-[#1A66A6] hover:bg-[#145082] text-white px-2 py-1 text-[9px] font-bold uppercase cursor-pointer"
+                        >
+                          <Send size={11} />
+                        </button>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+
+                {/* 8. Knowledge Base */}
+                <div id="section-knowledge" data-section-id="knowledge" data-section-title="Knowledge Base">
+                  <Card 
+                    onClickCapture={(e) => isHelpMode && triggerSectionHelp("Knowledge Base", "knowledge", e)}
+                    title="Knowledge Base" 
+                    accentColor="bg-[#8F57CB] text-white"
+                    isShaded={shadedSections["knowledge"]}
+                    onToggleShade={() => toggleShade("knowledge")}
+                    isExpanded={expandedSection === "knowledge"}
+                    onToggleExpand={() => toggleExpand("knowledge")}
+                  >
+                    <div className="space-y-1">
+                      <FileItem name="Solar_Repair_v2.pdf" size="2.4MB" icon={<FileText size={12} />} />
+                      <FileItem name="Mesh_Protocol.md" size="12KB" icon={<FileCode size={12} />} />
+                      <FileItem name="Local_Herb_Guide.pdf" size="5.1MB" icon={<BookOpen size={12} />} />
+                    </div>
+                    <Tip label="Search offline wiki documents" notImplemented={true}>
+                      <Button variant="outline" size="xs" className="w-full mt-1 py-0.5 text-[10px] h-[22px]">Browse All Docs</Button>
+                    </Tip>
+                  </Card>
+                </div>
+
+              </div>
+
+            </div>
           </div>
 
         </main>
+      )}
+
+            {/* ─── Persistent Floating Help Dock in Bottom-Right Corner ───── */}
+      <div className="fixed bottom-4 right-4 z-[99998] flex flex-col items-end gap-2 pointer-events-auto">
+        {!helpOverlay && (
+          <button
+            data-help-toggle="true"
+            onClick={() => {
+              setIsHelpMode(true);
+              setHelpOverlay({ title: "TAZ OS Navigation & Help", sectionId: "overview" });
+            }}
+            className={cn(
+              "px-3 py-1.5 font-mono text-xs font-black uppercase flex items-center gap-2 border-2 cursor-pointer transition-all shadow-xl",
+              isHelpMode 
+                ? "bg-[#F4D35A] text-[#222D2C] border-[#222D2C] ring-2 ring-[#222D2C] animate-pulse" 
+                : "bg-[#222D2C] hover:bg-[#1A66A6] text-white border-[#222D2C]"
+            )}
+            style={{ boxShadow: "4px 4px 0px 0px rgba(0,0,0,0.5)" }}
+          >
+            <HelpCircle size={14} className={isHelpMode ? "text-[#D35B50]" : "text-[#F4D35A]"} />
+            <span>{isHelpMode ? "HELP MODE: ACTIVE" : "❓ TUTORIAL HELP"}</span>
+          </button>
+        )}
+      </div>
+
+      {/* ─── Floating Help Mode Active Top/Bottom Notification ───────── */}
+      {isHelpMode && !helpOverlay && (
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[99998] bg-[#F4D35A] border-2 border-[#222D2C] px-4 py-2 shadow-2xl font-mono text-xs flex items-center gap-3 animate-bounce">
+          <div className="flex items-center gap-2 font-bold text-[#222D2C]">
+            <HelpCircle size={16} className="text-[#D35B50]" />
+            <span>HELP MODE ACTIVE: Click anywhere on any card to view its tutorial!</span>
+          </div>
+          <button
+            onClick={() => setIsHelpMode(false)}
+            className="bg-[#222D2C] hover:bg-[#1A66A6] text-white px-2 py-0.5 text-[10px] font-bold uppercase cursor-pointer"
+          >
+            Exit ✕
+          </button>
+        </div>
+      )}
+
+      {/* ─── Interactive Help Mode Floating Corner Overlay ─────────── */}
+      {helpOverlay && (
+        <div 
+          id="help-mode-overlay"
+          className="fixed bottom-4 right-4 z-[99999] bg-[#FFFFFF] border-3 border-[#222D2C] p-4 shadow-2xl w-96 max-w-[calc(100vw-32px)] font-mono text-xs animate-in slide-in-from-bottom-2 duration-150"
+          style={{ boxShadow: "6px 6px 0px 0px rgba(0,0,0,0.6)" }}
+        >
+          {/* Overlay Header */}
+          <div className="flex justify-between items-center border-b-2 border-[#222D2C] pb-2 mb-2 bg-[#222D2C] text-white p-2 -m-4 mb-2.5">
+            <div className="flex items-center gap-2 min-w-0">
+              <HelpCircle size={14} className="text-[#F4D35A] shrink-0" />
+              <span className="font-black text-xs uppercase truncate">
+                HELP: {helpOverlay.title}
+              </span>
+            </div>
+            <button
+              onClick={() => {
+                setHelpOverlay(null);
+                setIsHelpMode(false);
+              }}
+              className="text-white hover:text-[#F4D35A] p-0.5 cursor-pointer font-black text-sm"
+              title="Close Tutorial"
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Tutorial Body */}
+          <div className="space-y-2 py-1">
+            <div className="p-2 bg-[#F4D35A]/20 border border-[#F4D35A] text-[#222D2C] text-[10px] font-sans leading-relaxed">
+              <strong>Tutorial Guide:</strong> Click any section on the dashboard or map to inspect its real-time telemetry, offline data protocols, and non-hierarchical community workflows.
+            </div>
+
+            <div className="p-2.5 bg-[#EFECE6] border border-[#222D2C] text-[#3E4846] text-[11px] font-sans leading-relaxed">
+              Reserved for tutorial text.
+            </div>
+
+            <div className="flex justify-between items-center text-[9px] text-[#5B6360] font-mono pt-1">
+              <span>TARGET ID: [{helpOverlay.sectionId.toUpperCase()}]</span>
+              <span className="text-[#1A66A6] font-bold">CLICK ANY SECTION TO INSPECT</span>
+            </div>
+          </div>
+
+          {/* Footer Dismiss / Navigation */}
+          <div className="flex gap-2 pt-2 border-t border-[#222D2C]/20 mt-2">
+            <button
+              onClick={() => setIsHelpMode(!isHelpMode)}
+              className="flex-1 bg-[#EFECE6] hover:bg-[#DFDDD7] text-[#222D2C] border border-[#222D2C] py-1 text-[9px] font-bold uppercase cursor-pointer"
+            >
+              {isHelpMode ? "Exit Help Mode" : "Keep Help On"}
+            </button>
+            <button
+              onClick={() => setHelpOverlay(null)}
+              className="flex-1 bg-[#1A66A6] hover:bg-[#145082] text-white py-1 text-[9px] font-bold uppercase cursor-pointer"
+            >
+              Dismiss ✕
+            </button>
+          </div>
+        </div>
       )}
 
       {/* ─── Profile Slide-Over Sheet (Ariel Churi Account) ────────── */}
