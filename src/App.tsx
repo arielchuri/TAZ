@@ -50,6 +50,12 @@ import {
 import { Card, Button, cn, FileItem } from "./components/BrutalBase";
 import { Sheet } from "./components/BrutalSheet";
 import { TonerMap } from "./components/TonerMap";
+import { 
+  TransportCard, 
+  TransportExpandedView, 
+  type TransportEntry, 
+  INITIAL_TRANSPORT_ENTRIES 
+} from "./components/TransportWidget";
 import arielAvatar from "./assets/ariel.gif";
 
 // Tooltip helper component
@@ -76,6 +82,7 @@ const SECTION_COLOR_MAP: Record<string, { bg: string; text: string; accentBorder
   discussions: { bg: "bg-[#8F57CB]", text: "text-white", accentBorder: "border-[#8F57CB]" },
   about: { bg: "bg-[#222D2C]", text: "text-[#F4D35A]", accentBorder: "border-[#F4D35A]" },
   matcher: { bg: "bg-[#1A66A6]", text: "text-white", accentBorder: "border-[#1A66A6]" },
+  transport: { bg: "bg-[#0F5257]", text: "text-white", accentBorder: "border-[#0F5257]" },
   ariel_projects: { bg: "bg-[#222D2C]", text: "text-[#F4D35A]", accentBorder: "border-[#F4D35A]" },
   calendar: { bg: "bg-[#54C93F]", text: "text-white", accentBorder: "border-[#54C93F]" },
   governance: { bg: "bg-[#0F3D64]", text: "text-white", accentBorder: "border-[#0F3D64]" },
@@ -183,6 +190,7 @@ function App() {
   const SECTION_CONFIGS: { [key: string]: { title: string; color: string; subtitle: string } } = {
     map: { title: "CARTOGRAPHY", color: "bg-[#222D2C] text-white", subtitle: "// LOCAL ZONE CARTOGRAPHY — UPPER MONTCLAIR / MSU / MILLS RESERVATION" },
     matcher: { title: "MUTUAL AID", color: "bg-[#1A66A6] text-white", subtitle: "// PEER-TO-PEER MUTUAL AID MATCHER — FULL DIRECTORY" },
+    transport: { title: "TRANSPORT & DISPATCH", color: "bg-[#0F5257] text-white", subtitle: "// LOCAL ZONE RIDESHARE, PASSAGE & CARGO DISPATCH" },
     calendar: { title: "CALENDAR", color: "bg-[#54C93F] text-white", subtitle: "// COMMUNITY CALENDAR, BARN RAISING & FELLOWSHIP WORKSHOPS" },
     bulletin: { title: "BULLETIN", color: "bg-[#F4D35A] !text-[#222D2C]", subtitle: "// COMMUNITY BULLETIN & NEIGHBORHOOD PIN BOARD" },
     discussions: { title: "DISCUSSIONS", color: "bg-[#8F57CB] text-white", subtitle: "// TOPICAL DELIBERATION & WORKING GROUP HUBS" },
@@ -198,6 +206,22 @@ function App() {
   };
 
   const currentSectionConfig = expandedSection ? SECTION_CONFIGS[expandedSection] : null;
+
+  // Data: Transport & Rideshare Dispatch
+  const [transportEntries, setTransportEntries] = useState<TransportEntry[]>(INITIAL_TRANSPORT_ENTRIES);
+
+  const handleAddTransport = (newEntry: Omit<TransportEntry, "id" | "timestamp">) => {
+    const created: TransportEntry = {
+      ...newEntry,
+      id: `tr-${Date.now()}`,
+      timestamp: "Just now"
+    };
+    setTransportEntries(prev => [created, ...prev]);
+  };
+
+  const handleClaimTransport = (id: string) => {
+    setTransportEntries(prev => prev.map(item => item.id === id ? { ...item, claimed: true, claimedBy: "Ariel Churi (Node #742)" } : item));
+  };
 
   // Data: Mutual Aid Matcher
   const needs = [
@@ -668,6 +692,15 @@ function App() {
                 )}
               </div>
             </div>
+          )}
+
+          {/* EXPANDED: TRANSPORT & RIDESHARE */}
+          {expandedSection === "transport" && (
+            <TransportExpandedView
+              entries={transportEntries}
+              onAddEntry={handleAddTransport}
+              onClaimEntry={handleClaimTransport}
+            />
           )}
 
           {/* EXPANDED: CALENDAR & FELLOWSHIP */}
@@ -1561,7 +1594,19 @@ cd TAZ && npm install && npm run dev
                   </Card>
                 </div>
 
-                {/* 2. Ariel's Community Projects & Work Orders */}
+                {/* 2. Transport & Rideshare Dispatch */}
+                <TransportCard
+                  entries={transportEntries}
+                  onAddEntry={handleAddTransport}
+                  onClaimEntry={handleClaimTransport}
+                  isShaded={shadedSections["transport"]}
+                  onToggleShade={() => toggleShade("transport")}
+                  isExpanded={expandedSection === "transport"}
+                  onToggleExpand={() => toggleExpand("transport")}
+                  onHelpClick={(e) => isHelpMode && triggerSectionHelp("Transport & Rideshare Dispatch", "transport", e)}
+                />
+
+                {/* 3. Ariel's Community Projects & Work Orders */}
                 <div id="section-ariel_projects" data-section-id="ariel_projects" data-section-title="Ariel's Community Projects">
                   <Card
                     onClickCapture={(e) => isHelpMode && triggerSectionHelp("Ariel's Community Projects", "ariel_projects", e)}
@@ -2182,20 +2227,99 @@ cd TAZ && npm install && npm run dev
           })()}
 
           {/* Tutorial Body */}
-          <div className="space-y-2 py-1">
-            <div className="p-2 bg-[#F4D35A]/20 border border-[#F4D35A] text-[#222D2C] text-[10px] font-sans leading-relaxed">
-              <strong>Tutorial Guide:</strong> Click any section on the dashboard or map to inspect its real-time telemetry, offline data protocols, and non-hierarchical community workflows.
-            </div>
+          {(() => {
+            const info = (() => {
+              switch (helpOverlay.sectionId) {
+                case "transport":
+                  return {
+                    summary: "Decentralized rideshare and item courier dispatch operating over local mesh networks.",
+                    details: "Neighbors can broadcast requests for passenger passage or item delivery. Trips can be scheduled at a set time or marked flexible (anytime). Destinations can specify regional cities (Newark, NYC, Paterson) or community bounds coordinates [A-H, 1-8] on the local grid. Coordinated bilaterally without middlemen or corporate ride apps."
+                  };
+                case "matcher":
+                  return {
+                    summary: "Peer-to-Peer Mutual Aid Matcher (Section 2.2).",
+                    details: "Direct bilateral exchange matching physical community needs against neighbor surpluses without currency, landlords, or corporate logistics."
+                  };
+                case "map":
+                  return {
+                    summary: "Local Zone Cartography & Toner Grid.",
+                    details: "Calibrated 8x8 letter/number grid [A-H, 1-8] for Upper Montclair, Montclair State University, and Mills Reservation. Shows offline infrastructure, water filtration, and solar nodes."
+                  };
+                case "calendar":
+                  return {
+                    summary: "Community Calendar, Fellowship & Barn-Raising.",
+                    details: "Collective labor schedules, Amish-style timber framing, workshops, and weekly fellowship potlucks."
+                  };
+                case "bulletin":
+                  return {
+                    summary: "Neighborhood Bulletin & Pinboard.",
+                    details: "Local surplus notices, urgent repair alerts, and community announcements."
+                  };
+                case "governance":
+                  return {
+                    summary: "Direct Consensus Democracy & General Assembly.",
+                    details: "Quorum-based referendum voting and non-hierarchical community self-management."
+                  };
+                case "labor":
+                  return {
+                    summary: "Collective Labor & Tool Guilds.",
+                    details: "Work order rosters, tool lending libraries, and scheduled infrastructure maintenance."
+                  };
+                case "power":
+                  return {
+                    summary: "Solar Microgrid & 48V Battery Storage Telemetry.",
+                    details: "Real-time battery reserve percentages, solar MPPT generation wattage, and load consumption."
+                  };
+                case "water":
+                  return {
+                    summary: "Potable Rain Catchment & UV Purification.",
+                    details: "Reserves capacity, TDS purity readouts, and daily catchment yield rates."
+                  };
+                case "mesh":
+                  return {
+                    summary: "915MHz LoRa Mesh Network Telemetry.",
+                    details: "Active peer node topology, packet health, signal-to-noise ratio, and hop latency."
+                  };
+                case "nature":
+                  return {
+                    summary: "Solar Ephemeris & Regional Weather.",
+                    details: "Sunrise/sunset daylight curves, lunar phase, barometric trend, and 5-day forecast."
+                  };
+                case "comms":
+                  return {
+                    summary: "Encrypted Local Mesh Messenger.",
+                    details: "Decentralized radio messenger channels for neighborhood announcements, Ariel Churi's project logs, and emergency dispatch."
+                  };
+                case "knowledge":
+                  return {
+                    summary: "Offline Technical Manuals & Herb Guides.",
+                    details: "Locally cached emergency documentation, solar repair diagrams, and mesh firmware manuals."
+                  };
+                default:
+                  return {
+                    summary: "Temporary Autonomous Zone (TAZ) OS.",
+                    details: "An offline-first, non-hierarchical operating system for neighborhood mutual aid, resilience, and direct consensus self-governance."
+                  };
+              }
+            })();
 
-            <div className="p-2.5 bg-[#EFECE6] border border-[#222D2C] text-[#3E4846] text-[11px] font-sans leading-relaxed">
-              Reserved for tutorial text.
-            </div>
+            return (
+              <div className="space-y-2 py-1">
+                <div className="p-2 bg-[#F4D35A]/20 border border-[#F4D35A] text-[#222D2C] text-[10px] font-sans leading-relaxed">
+                  <strong>Section Overview:</strong> {info.summary}
+                </div>
 
-            <div className="flex justify-between items-center text-[9px] text-[#5B6360] font-mono pt-1">
-              <span>TARGET ID: [{helpOverlay.sectionId.toUpperCase()}]</span>
-              <span className="text-[#1A66A6] font-bold">CLICK ANY SECTION TO INSPECT</span>
-            </div>
-          </div>
+                <div className="p-2.5 bg-[#EFECE6] border border-[#222D2C] text-[#3E4846] text-[11px] font-sans leading-relaxed">
+                  {info.details}
+                </div>
+
+                <div className="flex justify-between items-center text-[9px] text-[#5B6360] font-mono pt-1">
+                  <span>TARGET ID: [{helpOverlay.sectionId.toUpperCase()}]</span>
+                  <span className="text-[#1A66A6] font-bold">CLICK ANY SECTION TO INSPECT</span>
+                </div>
+              </div>
+            );
+          })()}
 
           {/* Footer Dismiss / Navigation */}
           <div className="flex gap-2 pt-2 border-t border-[#222D2C]/20 mt-2">
